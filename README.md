@@ -32,16 +32,6 @@ Arsitektur: Fragment-based UI untuk navigasi yang mulus menggunakan Bottom Navig
 
 UI/UX: Custom XML Drawables untuk desain tombol, card, dan status indikator yang modern.
 
-📂 Struktur Proyek
-AdminDashboardFragment.java: Logika untuk panel kontrol administrator.
-
-DaftarAsetActivity.java: Menampilkan katalog aset.
-
-FormPeminjamanActivity.java: Form input untuk transaksi peminjaman baru.
-
-DataManager.java: Kelas utilitas untuk manajemen aliran data aplikasi.
-
-res/layout/: Berisi file desain antarmuka (XML) untuk setiap aktivitas dan fragmen.
 
 Cara Instalasi
 Clone repositori ini.
