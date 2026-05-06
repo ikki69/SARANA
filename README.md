@@ -1,67 +1,41 @@
-Aplikasi SARANA
+# 📱 Aplikasi SARANA
 
-Aplikasi SARANA adalah aplikasi Peminjaman Aset Jurusan Teknik Informatika dan Komputer Universitas Negeri Makassar berbasis Android untuk memanajemen inventaris barang dan memudahkan proses peminjaman serta pengembalian aset dalam lingkup jurusan JTIK.
+> Aplikasi Peminjaman Aset Jurusan Teknik Informatika dan Komputer (JTIK) Universitas Negeri Makassar berbasis Android untuk memanajemen inventaris barang dan memudahkan proses peminjaman serta pengembalian aset.
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
-🚀 Fitur Utama
+## 🚀 Fitur Utama
 
-1. Manajemen Pengguna
-Splash Screen: Tampilan awal aplikasi saat dimuat.
+### 👤 Manajemen Pengguna
+* **Splash Screen**: Tampilan awal aplikasi saat dimuat.
+* **Login**: Autentikasi pengguna untuk mengakses fitur aplikasi secara aman.
+* **User Profile**: Pengelolaan informasi profil pengguna beserta fitur *logout*.
 
-Login: Autentikasi pengguna untuk mengakses fitur aplikasi.
+### 🎓 Fitur Peminjam (User)
+* **Dashboard (Home)**: Ringkasan informasi dan akses cepat ke fitur utama aplikasi.
+* **Daftar Aset (Inventory)**: Katalog aset yang tersedia untuk dipinjam beserta detail informasi barang.
+* **Form Peminjaman**: Formulir digital untuk mengajukan peminjaman aset dengan mudah.
+* **Riwayat Peminjaman**: Pelacakan status pengajuan peminjaman yang sedang berlangsung maupun yang sudah selesai (Status: *Dipinjam* / *Dikembalikan*).
 
-User Profile: Mengelola informasi profil pengguna dan fitur logout.
+### 🔑 Fitur Admin
+* **Admin Dashboard**: Panel pemantauan khusus untuk melihat aktivitas peminjaman secara keseluruhan.
+* **Manajemen Peminjaman**: Fitur untuk menyetujui, menolak, atau mengelola status peminjaman aset dari pengguna.
 
-2. Fitur Peminjam (User)
-Dashboard (Home): Ringkasan informasi dan akses cepat ke fitur utama.
+---
 
-Daftar Aset (Inventory): Melihat daftar aset yang tersedia untuk dipinjam beserta detailnya.
+## 🛠️ Teknologi yang Digunakan
 
-Form Peminjaman: Mengajukan peminjaman aset dengan mengisi detail yang diperlukan.
+* **Bahasa Pemrograman**: Java (Android SDK)
+* **Backend & Database**: Firebase Services (Google Services Integration)
+* **Arsitektur**: *Fragment-based UI* untuk navigasi yang mulus menggunakan *Bottom Navigation*.
+* **UI/UX**: Custom XML Drawables untuk desain tombol, *card*, dan status indikator yang lebih modern.
 
-Riwayat Peminjaman: Melihat daftar pengajuan peminjaman yang sedang berlangsung maupun yang sudah selesai (Status: Dipinjam/Dikembalikan).
+---
 
-3. Fitur Admin
-Admin Dashboard: Panel khusus untuk memantau aktivitas peminjaman secara keseluruhan.
+## ⚙️ Cara Instalasi
 
-Manajemen Peminjaman: Menyetujui atau mengelola status peminjaman aset dari pengguna.
+Ikuti langkah-langkah berikut untuk menjalankan aplikasi di *environment* lokal Anda:
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-🛠️ Teknologi yang Digunakan
-
-Bahasa Pemrograman: Java (Android SDK)
-
-Backend & Database: Firebase Services (Google Services integration)
-
-Arsitektur: Fragment-based UI untuk navigasi yang mulus menggunakan Bottom Navigation.
-
-UI/UX: Custom XML Drawables untuk desain tombol, card, dan status indikator yang modern.
-
-
-Cara Instalasi
-
-Clone repositori ini.
-
-Buka proyek menggunakan Android Studio.
-
-Pastikan konfigurasi SDK dan Gradle sudah sesuai.
-
-Hubungkan dengan project Firebase Anda sendiri jika ingin melakukan pengembangan lebih lanjut (mengganti google-services.json).
-
-Build dan Run aplikasi di Emulator atau Perangkat Android fisik.
-
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-👨‍💻 Credits
-
-Kelompok 2:
-
-MUH ASYAM ASHARI ANSAR
-
-Muhammad Rifqi Ramdani Abdullah
-
-Ahmad Fakhri Syafa
-
-St. Muslimah Nursalam
+1. **Clone repositori ini:**
+   ```bash
+   git clone [https://github.com/username/repo-sarana.git](https://github.com/username/repo-sarana.git)
