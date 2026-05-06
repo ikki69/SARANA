@@ -3,6 +3,7 @@ Aplikasi SARANA
 Aplikasi SARANA adalah aplikasi Peminjaman Aset Jurusan Teknik Informatika dan Komputer Universitas Negeri Makassar berbasis Android untuk memanajemen inventaris barang dan memudahkan proses peminjaman serta pengembalian aset dalam lingkup jurusan JTIK.
 
 🚀 Fitur Utama
+
 1. Manajemen Pengguna
 Splash Screen: Tampilan awal aplikasi saat dimuat.
 
@@ -25,6 +26,7 @@ Admin Dashboard: Panel khusus untuk memantau aktivitas peminjaman secara keselur
 Manajemen Peminjaman: Menyetujui atau mengelola status peminjaman aset dari pengguna.
 
 🛠️ Teknologi yang Digunakan
+
 Bahasa Pemrograman: Java (Android SDK)
 
 Backend & Database: Firebase Services (Google Services integration)
@@ -35,6 +37,7 @@ UI/UX: Custom XML Drawables untuk desain tombol, card, dan status indikator yang
 
 
 Cara Instalasi
+
 Clone repositori ini.
 
 Buka proyek menggunakan Android Studio.
