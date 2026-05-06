@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Sistem Peminjaman Aset</string>
+    <string name="app_subtitle">Jurusan Teknik Komputer</string>
+
+    <!-- Labels -->
+    <string name="label_nama_peminjam">Nama Peminjam</string>
+    <string name="label_nim">NIM / NIP</string>
+    <string name="label_aset">Pilih Aset</string>
+    <string name="label_jumlah">Jumlah</string>
+    <string name="label_tanggal_pinjam">Tanggal Pinjam</string>
+    <string name="label_tanggal_kembali">Tanggal Kembali</string>
+    <string name="label_keperluan">Keperluan / Keterangan</string>
+    <string name="label_status">Status</string>
+
+    <!-- Hints -->
+    <string name="hint_nama">Masukkan nama lengkap</string>
+    <string name="hint_nim">Masukkan NIM atau NIP</string>
+    <string name="hint_jumlah">Contoh: 1</string>
+    <string name="hint_keperluan">Jelaskan keperluan peminjaman</string>
+
+    <!-- Buttons -->
+    <string name="btn_pinjam">Ajukan Peminjaman</string>
+    <string name="btn_kembali">Kembalikan Aset</string>
+    <string name="btn_lihat_riwayat">Lihat Riwayat</string>
+    <string name="btn_tambah_pinjam">+ Pinjam Aset</string>
+    <string name="btn_daftar_aset">Daftar Aset</string>
+
+    <!-- Status -->
+    <string name="status_dipinjam">Dipinjam</string>
+    <string name="status_dikembalikan">Dikembalikan</string>
+    <string name="status_tersedia">Tersedia</string>
+
+    <!-- Messages -->
+    <string name="msg_berhasil_pinjam">Peminjaman berhasil diajukan!</string>
+    <string name="msg_berhasil_kembali">Aset berhasil dikembalikan!</string>
+    <string name="msg_form_kosong">Harap isi semua field!</string>
+    <string name="msg_tidak_ada_data">Belum ada data peminjaman</string>
+</resources>

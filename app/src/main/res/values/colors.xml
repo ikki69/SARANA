@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Teal (dari Figma) -->
+    <color name="primary">#2B7A6F</color>
+    <color name="primary_dark">#1E5C54</color>
+    <color name="primary_light">#D6EAE8</color>
+
+    <!-- Dark Header (dari Figma) -->
+    <color name="header_dark">#1C1C1C</color>
+    <color name="header_teal">#2B7A6F</color>
+
+    <!-- Background -->
+    <color name="background_cream">#FAF8F2</color>
+    <color name="background_white">#FFFFFF</color>
+    <color name="background_card">#FFFFFF</color>
+
+    <!-- Text -->
+    <color name="text_primary">#1C1C1C</color>
+    <color name="text_secondary">#6B6B6B</color>
+    <color name="text_hint">#9E9E9E</color>
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_teal">#2B7A6F</color>
+
+    <!-- Status Colors (dari Figma) -->
+    <color name="status_dipinjam_bg">#FFF3E0</color>
+    <color name="status_dipinjam_text">#E65100</color>
+    <color name="status_dipinjam_border">#FF9800</color>
+    <color name="status_kembali_bg">#E8F5E9</color>
+    <color name="status_kembali_text">#2E7D32</color>
+    <color name="status_kembali_border">#4CAF50</color>
+
+    <!-- Category accent colors (dari Figma - warna list items) -->
+    <color name="accent_blue">#5B8DB8</color>
+    <color name="accent_teal">#2B7A6F</color>
+    <color name="accent_orange">#E8883A</color>
+    <color name="accent_red">#C75B5B</color>
+    <color name="accent_purple">#7B68B0</color>
+    <color name="accent_gold">#C9A227</color>
+
+    <!-- Divider & Border -->
+    <color name="divider">#E8E4DE</color>
+    <color name="border">#D4CFCA</color>
+
+    <!-- Legacy aliases (kompatibilitas) -->
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#9E9E9E</color>
+    <color name="gray_light">#FAF8F2</color>
+    <color name="green">#2E7D32</color>
+    <color name="orange">#E65100</color>
+    <color name="red">#C75B5B</color>
+    <color name="blue">#5B8DB8</color>
+</resources>

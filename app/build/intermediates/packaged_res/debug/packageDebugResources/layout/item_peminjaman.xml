@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Item layout untuk satu baris peminjaman (Figma style: left color border + cream bg) -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginBottom="6dp"
+    android:background="@drawable/bg_card"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Left color accent bar (Figma style) -->
+    <View
+        android:id="@+id/viewAccentBar"
+        android:layout_width="4dp"
+        android:layout_height="match_parent"
+        android:background="@color/primary"
+        android:minHeight="60dp" />
+
+    <!-- Content -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <!-- Row 1: Nama + Status badge -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tvItemNama"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nama Peminjam"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvItemStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dipinjam"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:background="@drawable/bg_status_dipinjam"
+                android:textColor="@color/status_dipinjam_text" />
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="2dp" />
+
+        <!-- Row 2: NIM -->
+        <TextView
+            android:id="@+id/tvItemNim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NIM: 000000"
+            android:textColor="@color/text_secondary"
+            android:textSize="11sp" />
+
+        <View android:layout_width="match_parent" android:layout_height="4dp" />
+
+        <!-- Row 3: Aset Items Container -->
+        <LinearLayout
+            android:id="@+id/containerItemPeminjaman"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="2dp" />
+
+        <!-- Fallback for single/summary if needed (can be hidden) -->
+        <LinearLayout
+            android:id="@+id/layoutSingleAset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvItemAset"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nama Aset"
+                android:textColor="@color/primary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvItemJumlah"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="x1"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="3dp" />
+
+        <!-- Row 4: Tanggal -->
+        <TextView
+            android:id="@+id/tvItemTanggal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pinjam: dd/mm/yyyy  |  Kembali: dd/mm/yyyy"
+            android:textColor="@color/text_hint"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,186 @@
+[
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_ic_history.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/ic_history.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_item_aset.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/item_aset.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_fragment_home.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_fragment_inventory.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/fragment_inventory.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_item_peminjaman_subitem.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/item_peminjaman_subitem.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_status_dipinjam.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_status_dipinjam.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_header.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_header.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_activity_detail_peminjaman.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/activity_detail_peminjaman.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_login_gradient.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_login_gradient.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_card_cream.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_card_cream.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_button_secondary.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_button_secondary.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_item_peminjaman.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/item_peminjaman.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_ic_profile.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/ic_profile.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_activity_form_peminjaman.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/activity_form_peminjaman.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_tab_active.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_tab_active.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_activity_daftar_aset.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/activity_daftar_aset.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_card.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_card.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_ic_launcher_round.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_item_form_aset.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/item_form_aset.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_fragment_admin_dashboard.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/fragment_admin_dashboard.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_ic_launcher.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_button_green.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_button_green.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_activity_splash.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_edittext.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_edittext.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_status_dikembalikan.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_status_dikembalikan.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_activity_main.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/color_nav_item_color.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/color/nav_item_color.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_fragment_profile.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/fragment_profile.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_ic_inventory.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/ic_inventory.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_edittext_focus.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_edittext_focus.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_header_teal.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_header_teal.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_ic_logout.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/ic_logout.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_item_detail_aset.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/item_detail_aset.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_button_primary.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_button_primary.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_button_outline.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_button_outline.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_activity_riwayat.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/activity_riwayat.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_logo_aset.png.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/logo_aset.png"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/menu_bottom_nav_menu.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/menu/bottom_nav_menu.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_splash.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_splash.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_fragment_history.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/fragment_history.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_menu_item.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_menu_item.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_stat_card.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_stat_card.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_ic_home.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/ic_home.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_activity_login.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_item_peminjaman_admin.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/item_peminjaman_admin.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_tab_inactive.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_tab_inactive.xml"
+    }
+]
