@@ -60,4 +60,4 @@ Proyek ini dikembangkan oleh **Kelompok 2**:
 * **St. Muslimah Nursalam**
 
 ---
-© 2024 JTIK UNM - Aplikasi SARANA
+© 2026 JTIK UNM - Aplikasi SARANA
