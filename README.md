@@ -38,4 +38,26 @@ Ikuti langkah-langkah berikut untuk menjalankan aplikasi di *environment* lokal 
 
 1. **Clone repositori ini:**
    ```bash
-   git clone [https://github.com/username/repo-sarana.git](https://github.com/username/repo-sarana.git)
+   git clone https://github.com
+   ```
+2. **Buka Proyek**: Buka direktori proyek menggunakan **Android Studio**.
+3. **Sinkronisasi**: Pastikan konfigurasi SDK dan Gradle Anda sudah sesuai dan tersinkronisasi (*Sync Project with Gradle Files*).
+4. **Integrasi Firebase (Opsional untuk pengembangan mandiri)**:
+   * Buat project Firebase Anda sendiri di [Firebase Console](https://google.com).
+   * Unduh file konfigurasi `google-services.json` Anda.
+   * Ganti file `google-services.json` yang ada di dalam direktori `app/` dengan file milik Anda.
+5. **Jalankan Aplikasi**: *Build* dan *Run* aplikasi menggunakan Emulator atau langsung di perangkat Android fisik Anda.
+
+---
+
+## 👨‍💻 Kontributor
+
+Proyek ini dikembangkan oleh **Kelompok 2**:
+
+* **Muh Asyam Ashari Ansar**
+* **Muhammad Rifqi Ramdani Abdullah**
+* **Ahmad Fakhri Syafa**
+* **St. Muslimah Nursalam**
+
+---
+© 2024 JTIK UNM - Aplikasi SARANA
