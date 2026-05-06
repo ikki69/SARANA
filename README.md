@@ -54,7 +54,7 @@ Ikuti langkah-langkah berikut untuk menjalankan aplikasi di *environment* lokal 
 
 ## 👨‍💻 Kontributor
 
-Proyek ini dikembangkan oleh **Kelompok 2**:
+Proyek ini dikembangkan oleh:
 
 * **Muh Asyam Ashari Ansar**
 * **Muhammad Rifqi Ramdani Abdullah**
