@@ -62,4 +62,3 @@ Proyek ini dikembangkan oleh:
 * **St. Muslimah Nursalam**
 
 ---
-© 2026 JTIK UNM - Aplikasi SARANA
