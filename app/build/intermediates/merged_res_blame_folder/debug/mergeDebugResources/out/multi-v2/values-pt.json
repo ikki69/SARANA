@@ -4,7 +4,7 @@
             "outputFile": "com.example.asetpeminjaman.app-mergeDebugResources-36:/values-pt/values-pt.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Muham\\.gradle\\caches\\9.3.1\\transforms\\09088c66eddf29e770fd1378fe167253\\workspace\\transformed\\core-1.9.0\\res\\values-pt\\values-pt.xml",
+                    "source": "C:\\Users\\Muham\\.gradle\\caches\\8.11.1\\transforms\\b1fc67bdd7af1ad7fd2348c9132479e4\\transformed\\core-1.9.0\\res\\values-pt\\values-pt.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Muham\\.gradle\\caches\\9.3.1\\transforms\\dacef80b8a30667d7d5ffce64261f368\\workspace\\transformed\\appcompat-1.6.1\\res\\values-pt\\values-pt.xml",
+                    "source": "C:\\Users\\Muham\\.gradle\\caches\\8.11.1\\transforms\\6b02058dc77d7b64b8f417d2e4e811f8\\transformed\\appcompat-1.6.1\\res\\values-pt\\values-pt.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

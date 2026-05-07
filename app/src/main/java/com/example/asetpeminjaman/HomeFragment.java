@@ -19,12 +19,15 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private TextView tvTotalAset, tvTotalDipinjam, tvTotalKembali, tvWelcome;
+    private TextView tvTotalAset, tvTotalDipinjam, tvTotalKembali, tvTotalTerlambat, tvWelcome;
     private LinearLayout layoutPeminjamanAktif;
-    private TextView tvLihatSemua;
+    private LinearLayout cardTotalAset, cardTotalDipinjam, cardTotalKembali, cardTotalTerlambat;
+    private TextView tvLihatSemua, tvProgressTitle, tvProgressPercent, tvProgressFraction;
+    private android.widget.ProgressBar pbKapasitas;
     private Button btnQuickPinjam;
     private ImageView btnLogout;
     private DataManager dataManager;
+    private DataManager.DataChangeListener dataListener;
 
     @Nullable
     @Override
@@ -33,14 +36,60 @@ public class HomeFragment extends Fragment {
         
         dataManager = DataManager.getInstance();
         
+        // Setup listener untuk update otomatis
+        dataListener = () -> {
+            if (isAdded()) {
+                updateStatistik();
+                tampilkanPeminjamanAktif();
+            }
+        };
+        dataManager.addListener(dataListener);
+        
         tvTotalAset = view.findViewById(R.id.tvTotalAset);
         tvTotalDipinjam = view.findViewById(R.id.tvTotalDipinjam);
         tvTotalKembali = view.findViewById(R.id.tvTotalKembali);
+        tvTotalTerlambat = view.findViewById(R.id.tvTotalTerlambat);
         tvWelcome = view.findViewById(R.id.tvWelcome);
         layoutPeminjamanAktif = view.findViewById(R.id.layoutPeminjamanAktif);
         tvLihatSemua = view.findViewById(R.id.tvLihatSemua);
         btnQuickPinjam = view.findViewById(R.id.btnQuickPinjam);
         btnLogout = view.findViewById(R.id.btnLogout);
+
+        // Progress Card Views
+        tvProgressTitle = view.findViewById(R.id.tvProgressTitle);
+        tvProgressPercent = view.findViewById(R.id.tvProgressPercent);
+        tvProgressFraction = view.findViewById(R.id.tvProgressFraction);
+        pbKapasitas = view.findViewById(R.id.pbKapasitas);
+
+        // Inisialisasi Card Layouts
+        cardTotalAset = view.findViewById(R.id.cardTotalAset);
+        cardTotalDipinjam = view.findViewById(R.id.cardTotalDipinjam);
+        cardTotalKembali = view.findViewById(R.id.cardTotalKembali);
+        cardTotalTerlambat = view.findViewById(R.id.cardTotalTerlambat);
+
+        // Klik pada Card Total Aset
+        cardTotalAset.setOnClickListener(v -> {
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).switchToTab(R.id.nav_inventory);
+            }
+        });
+
+        // Klik pada Card Dipinjam, Kembali & Terlambat arahkan ke tab Riwayat dengan filter
+        cardTotalDipinjam.setOnClickListener(v -> {
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).switchToTab(R.id.nav_history, "DIPINJAM");
+            }
+        });
+        cardTotalKembali.setOnClickListener(v -> {
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).switchToTab(R.id.nav_history, "KEMBALI");
+            }
+        });
+        cardTotalTerlambat.setOnClickListener(v -> {
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).switchToTab(R.id.nav_history, "TERLAMBAT");
+            }
+        });
 
         btnLogout.setOnClickListener(v -> {
             if (getActivity() != null) {
@@ -51,17 +100,15 @@ public class HomeFragment extends Fragment {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 getActivity().finish();
-                Toast.makeText(getActivity(), "Berhasil keluar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.logout_success, Toast.LENGTH_SHORT).show();
             }
         });
 
-        SharedPreferences pref = getActivity().getSharedPreferences("USER_DATA", Context.MODE_PRIVATE);
-        String username = pref.getString("username", "Pengguna");
-        tvWelcome.setText("Halo, " + username + "!");
+        SharedPreferences pref = getActivity() != null ? getActivity().getSharedPreferences("USER_DATA", Context.MODE_PRIVATE) : null;
+        String username = pref != null ? pref.getString("username", "Pengguna") : "Pengguna";
+        tvWelcome.setText(getString(R.string.welcome_user, username));
 
-        btnQuickPinjam.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), FormPeminjamanActivity.class));
-        });
+        btnQuickPinjam.setOnClickListener(v -> startActivity(new Intent(getActivity(), FormPeminjamanActivity.class)));
 
         tvLihatSemua.setOnClickListener(v -> {
             if (getActivity() instanceof MainActivity) {
@@ -79,10 +126,45 @@ public class HomeFragment extends Fragment {
         tampilkanPeminjamanAktif();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (dataManager != null && dataListener != null) {
+            dataManager.removeListener(dataListener);
+        }
+    }
+
     private void updateStatistik() {
-        tvTotalAset.setText(String.valueOf(dataManager.getTotalAset()));
-        tvTotalDipinjam.setText(String.valueOf(dataManager.getTotalDipinjam()));
-        tvTotalKembali.setText(String.valueOf(dataManager.getTotalDikembalikan()));
+        if (!isAdded()) return;
+        
+        SharedPreferences pref = getActivity().getSharedPreferences("USER_DATA", Context.MODE_PRIVATE);
+        String username = pref.getString("username", "");
+        String role = pref.getString("role", "user");
+        boolean isAdmin = "admin".equals(role);
+
+        int totalAset = dataManager.getTotalAset();
+        int totalDipinjam = dataManager.getTotalDipinjam(username, isAdmin);
+        int totalKembali = dataManager.getTotalDikembalikan(username, isAdmin);
+        int totalTerlambat = dataManager.getTotalTerlambat(username, isAdmin);
+        int itemDipinjam = dataManager.getTotalItemDipinjam(username, isAdmin);
+
+        tvTotalAset.setText(String.valueOf(totalAset));
+        tvTotalDipinjam.setText(String.valueOf(totalDipinjam));
+        tvTotalKembali.setText(String.valueOf(totalKembali));
+        tvTotalTerlambat.setText(String.valueOf(totalTerlambat));
+
+        // Update Progress Card
+        if (isAdmin) {
+            tvProgressTitle.setText(getString(R.string.item_dipinjam_format, itemDipinjam, totalAset));
+        } else {
+            tvProgressTitle.setText(getString(R.string.user_pinjam_format, itemDipinjam));
+        }
+
+        tvProgressFraction.setText(getString(R.string.progress_fraction, itemDipinjam, totalAset));
+        
+        int percent = (totalAset > 0) ? (itemDipinjam * 100) / totalAset : 0;
+        tvProgressPercent.setText(getString(R.string.progress_percent, percent));
+        pbKapasitas.setProgress(percent);
     }
 
     private void tampilkanPeminjamanAktif() {
@@ -95,7 +177,7 @@ public class HomeFragment extends Fragment {
 
         if (aktif.isEmpty()) {
             TextView emptyText = new TextView(getContext());
-            emptyText.setText("Belum ada peminjaman aktif");
+            emptyText.setText(R.string.peminjaman_aktif_empty);
             emptyText.setPadding(0, 40, 0, 40);
             emptyText.setGravity(android.view.Gravity.CENTER);
             layoutPeminjamanAktif.addView(emptyText);
@@ -122,7 +204,7 @@ public class HomeFragment extends Fragment {
                     containerItems.addView(subItem);
                 }
 
-                tvTanggal.setText("Pinjam: " + peminjaman.getTanggalPinjam() + " | Kembali: " + peminjaman.getTanggalRencanaKembali());
+                tvTanggal.setText(getString(R.string.pinjam_kembali_format, peminjaman.getTanggalPinjam(), peminjaman.getTanggalRencanaKembali()));
                 tvStatus.setText(peminjaman.getStatus());
 
                 itemView.setOnClickListener(v -> {

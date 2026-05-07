@@ -48,12 +48,37 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvSubtitleRiwayat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Semua transaksi"
                     android:textColor="#8A8A8A"
                     android:textSize="11sp" />
             </LinearLayout>
+        </LinearLayout>
+
+        <!-- Search Bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="10dp">
+
+            <EditText
+                android:id="@+id/etSearchRiwayat"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Cari nama peminjam atau aset..."
+                android:textColorHint="#9E9E9E"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:inputType="text"
+                android:singleLine="true" />
+
         </LinearLayout>
     </LinearLayout>
 

@@ -10,9 +10,22 @@
     <color name="header_teal">#2B7A6F</color>
 
     <!-- Background -->
-    <color name="background_cream">#FAF8F2</color>
+    <color name="background_cream">#F8F6F1</color>
     <color name="background_white">#FFFFFF</color>
     <color name="background_card">#FFFFFF</color>
+
+    <!-- Card Background Colors (Pastels) -->
+    <color name="card_bg_1">#E0F2F1</color>
+    <color name="card_bg_2">#E3F2FD</color>
+    <color name="card_bg_3">#FFEBEE</color>
+    <color name="card_bg_4">#FFFDE7</color>
+    <color name="card_bg_5">#F3E5F5</color>
+    <color name="card_bg_6">#FFF3E0</color>
+
+    <!-- Progress Bar Colors -->
+    <color name="progress_jaringan">#2B7A6F</color>
+    <color name="progress_hardware">#5B8DB8</color>
+    <color name="progress_software">#7B68B0</color>
 
     <!-- Text -->
     <color name="text_primary">#1C1C1C</color>
@@ -22,12 +35,18 @@
     <color name="text_teal">#2B7A6F</color>
 
     <!-- Status Colors (dari Figma) -->
-    <color name="status_dipinjam_bg">#FFF3E0</color>
-    <color name="status_dipinjam_text">#E65100</color>
-    <color name="status_dipinjam_border">#FF9800</color>
-    <color name="status_kembali_bg">#E8F5E9</color>
-    <color name="status_kembali_text">#2E7D32</color>
-    <color name="status_kembali_border">#4CAF50</color>
+    <color name="status_available_bg">#D1EAE7</color>
+    <color name="status_available_text">#2B7A6F</color>
+    <color name="status_partial_bg">#FDF1D3</color>
+    <color name="status_partial_text">#C9A227</color>
+    <color name="status_borrowed_bg">#D7E5F0</color>
+    <color name="status_borrowed_text">#5B8DB8</color>
+    <color name="status_damaged_bg">#F9E2E2</color>
+    <color name="status_damaged_text">#C75B5B</color>
+
+    <!-- Additional Status Aliases -->
+    <color name="status_dipinjam_text">#5B8DB8</color>
+    <color name="status_kembali_text">#2B7A6F</color>
 
     <!-- Category accent colors (dari Figma - warna list items) -->
     <color name="accent_blue">#5B8DB8</color>
@@ -36,6 +55,17 @@
     <color name="accent_red">#C75B5B</color>
     <color name="accent_purple">#7B68B0</color>
     <color name="accent_gold">#C9A227</color>
+
+    <!-- Admin Dashboard Colors -->
+    <color name="admin_header">#1A130F</color>
+    <color name="admin_bg">#F8F6F1</color>
+
+    <color name="kpi_green">#2B7A6F</color>
+    <color name="kpi_yellow">#C9A227</color>
+    <color name="kpi_blue">#5B8DB8</color>
+    <color name="kpi_red">#C75B5B</color>
+    <color name="kpi_purple">#7B68B0</color>
+    <color name="kpi_orange">#E8883A</color>
 
     <!-- Divider & Border -->
     <color name="divider">#E8E4DE</color>

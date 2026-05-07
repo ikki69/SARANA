@@ -6,9 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_marginBottom="6dp"
-    android:background="@drawable/bg_card"
-    android:clickable="true"
-    android:focusable="true">
+    android:background="@drawable/bg_card">
 
     <!-- Left color accent bar (Figma style) -->
     <View

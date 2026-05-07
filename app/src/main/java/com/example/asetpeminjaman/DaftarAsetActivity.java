@@ -14,6 +14,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Context;
+import android.content.SharedPreferences;
+import androidx.appcompat.app.AlertDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import android.view.LayoutInflater;
+import android.widget.Button;
+import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,11 +44,13 @@ public class DaftarAsetActivity extends AppCompatActivity {
     private ListView listViewAset;
     private EditText etSearch;
     private ImageView btnBack;
+    private FloatingActionButton fabAddAset;
 
     private DataManager dataManager;
     private List<DataAset> listAset;
     private List<DataAset> listAsetFilter;
     private AsetAdapter adapter;
+    private DataManager.DataChangeListener dataListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +59,25 @@ public class DaftarAsetActivity extends AppCompatActivity {
 
         dataManager = DataManager.getInstance();
 
+        // Setup listener untuk update otomatis
+        dataListener = () -> {
+            listAset = dataManager.getAllAset();
+            filterAset(etSearch.getText().toString());
+        };
+        dataManager.addListener(dataListener);
+
         // Menghubungkan View (Modul 3 - findViewById)
         listViewAset = findViewById(R.id.listViewAset);
         etSearch = findViewById(R.id.etSearch);
         btnBack = findViewById(R.id.btnBack);
+        fabAddAset = findViewById(R.id.fabAddAset);
+
+        // Cek Role - Hanya Admin yang bisa tambah aset
+        SharedPreferences pref = getSharedPreferences("USER_DATA", Context.MODE_PRIVATE);
+        String role = pref.getString("role", "user");
+        if ("admin".equals(role)) {
+            fabAddAset.setVisibility(View.VISIBLE);
+        }
 
         listAset = dataManager.getAllAset();
         listAsetFilter = new ArrayList<>(listAset);
@@ -62,6 +86,11 @@ public class DaftarAsetActivity extends AppCompatActivity {
         adapter = new AsetAdapter(listAsetFilter);
         listViewAset.setAdapter(adapter);
 
+        // Setup listener
+        setupListeners();
+    }
+
+    private void setupListeners() {
         // Click listener tombol Back (Modul 3 - Click Event)
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,32 +113,140 @@ public class DaftarAsetActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {}
         });
 
-        // Klik item ListView -> buka form peminjaman untuk aset tersebut
+        // Klik item ListView
         listViewAset.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DataAset aset = listAsetFilter.get(position);
-
-                if (!aset.isTersedia()) {
-                    Toast.makeText(DaftarAsetActivity.this,
-                            aset.getNamaAset() + " sedang tidak tersedia",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // Intent Eksplisit: buka form peminjaman (Modul 6)
-                // Kirim nama aset via putExtra (Modul 6 - putExtra)
-                Intent intent = new Intent(DaftarAsetActivity.this,
-                        FormPeminjamanActivity.class);
-                intent.putExtra("NAMA_ASET", aset.getNamaAset());
-                startActivity(intent);
+                showDetailAsetDialog(aset);
             }
         });
+
+        // Klik FAB Tambah Aset
+        fabAddAset.setOnClickListener(v -> showAddAsetDialog());
+    }
+
+    private void showDetailAsetDialog(DataAset aset) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_detail_aset, null);
+        builder.setView(dialogView);
+
+        TextView tvIcon = dialogView.findViewById(R.id.tvDetAsetIcon);
+        TextView tvNama = dialogView.findViewById(R.id.tvDetAsetNama);
+        TextView tvKat = dialogView.findViewById(R.id.tvDetAsetKategori);
+        TextView tvKon = dialogView.findViewById(R.id.tvDetAsetKondisi);
+        TextView tvStokTotal = dialogView.findViewById(R.id.tvDetAsetStokTotal);
+        TextView tvStokPinjam = dialogView.findViewById(R.id.tvDetAsetStokPinjam);
+        TextView tvStokTersedia = dialogView.findViewById(R.id.tvDetAsetStokTersedia);
+        Button btnPinjam = dialogView.findViewById(R.id.btnDetPinjam);
+        Button btnHapus = dialogView.findViewById(R.id.btnDetHapus);
+
+        tvNama.setText(aset.getNamaAset());
+        tvKat.setText(aset.getKategori());
+        tvKon.setText(aset.getKondisi());
+        tvStokTotal.setText(aset.getStokTotal() + " Unit");
+        tvStokPinjam.setText(aset.getStokDipinjam() + " Unit");
+        tvStokTersedia.setText(aset.getStokTersedia() + " Unit");
+
+        // Set Icon
+        switch (aset.getKategori()) {
+            case "Komputer": tvIcon.setText("💻"); break;
+            case "Elektronik": tvIcon.setText("🔌"); break;
+            case "Mikrokomputer": tvIcon.setText("🍓"); break;
+            case "Mikrokontroler": tvIcon.setText("🤖"); break;
+            case "Aksesoris": tvIcon.setText("🔗"); break;
+            case "Alat Ukur": tvIcon.setText("📏"); break;
+            case "Jaringan": tvIcon.setText("🌐"); break;
+            default: tvIcon.setText("📦"); break;
+        }
+
+        SharedPreferences pref = getSharedPreferences("USER_DATA", Context.MODE_PRIVATE);
+        String role = pref.getString("role", "user");
+
+        if ("admin".equals(role)) {
+            btnHapus.setVisibility(View.VISIBLE);
+            btnHapus.setOnClickListener(v -> {
+                new AlertDialog.Builder(this)
+                        .setTitle("Hapus Aset")
+                        .setMessage("Apakah Anda yakin ingin menghapus " + aset.getNamaAset() + "?")
+                        .setPositiveButton("Ya, Hapus", (d, w) -> {
+                            dataManager.hapusAset(aset.getId());
+                            Toast.makeText(this, "Aset dihapus", Toast.LENGTH_SHORT).show();
+                        })
+                        .setNegativeButton("Batal", null)
+                        .show();
+            });
+        } else {
+            btnPinjam.setVisibility(View.VISIBLE);
+            if (!aset.isTersedia()) {
+                btnPinjam.setEnabled(false);
+                btnPinjam.setText("STOK HABIS");
+                btnPinjam.setBackgroundTintList(android.content.res.ColorStateList.valueOf(getResources().getColor(android.R.color.darker_gray)));
+            }
+            btnPinjam.setOnClickListener(v -> {
+                Intent intent = new Intent(DaftarAsetActivity.this, FormPeminjamanActivity.class);
+                intent.putExtra("NAMA_ASET", aset.getNamaAset());
+                startActivity(intent);
+            });
+        }
+
+        builder.show();
+    }
+
+    private void showAddAsetDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_tambah_aset, null);
+        builder.setView(dialogView);
+
+        EditText etNama = dialogView.findViewById(R.id.etAddNamaAset);
+        Spinner spKategori = dialogView.findViewById(R.id.spAddKategori);
+        EditText etStok = dialogView.findViewById(R.id.etAddStok);
+        Spinner spKondisi = dialogView.findViewById(R.id.spAddKondisi);
+
+        // Setup Spinner Kategori
+        String[] kategoriArr = {"Komputer", "Elektronik", "Mikrokomputer", "Mikrokontroler", "Aksesoris", "Alat Ukur", "Jaringan"};
+        ArrayAdapter<String> katAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, kategoriArr);
+        katAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spKategori.setAdapter(katAdapter);
+
+        // Setup Spinner Kondisi
+        String[] kondisiArr = {"Baik", "Rusak Ringan", "Rusak Berat"};
+        ArrayAdapter<String> konAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, kondisiArr);
+        konAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spKondisi.setAdapter(konAdapter);
+
+        builder.setTitle("Tambah Aset Baru");
+        builder.setPositiveButton("Simpan", (dialog, which) -> {
+            String nama = etNama.getText().toString().trim();
+            String kategori = spKategori.getSelectedItem().toString();
+            String stokStr = etStok.getText().toString().trim();
+            String kondisi = spKondisi.getSelectedItem().toString();
+
+            if (nama.isEmpty() || stokStr.isEmpty()) {
+                Toast.makeText(this, "Harap isi semua data", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            int stok = Integer.parseInt(stokStr);
+            DataAset baru = new DataAset(0, nama, kategori, stok, kondisi);
+            dataManager.tambahAset(baru);
+            Toast.makeText(this, "Aset berhasil ditambahkan", Toast.LENGTH_SHORT).show();
+        });
+        builder.setNegativeButton("Batal", null);
+        builder.show();
     }
 
     /**
      * Filter daftar aset berdasarkan query pencarian
      */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (dataManager != null && dataListener != null) {
+            dataManager.removeListener(dataListener);
+        }
+    }
+
     private void filterAset(String query) {
         listAsetFilter.clear();
         if (query.isEmpty()) {

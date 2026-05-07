@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#FFFFFF">
+
+    <TextView
+        android:id="@+id/tvDetAsetIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="📦"
+        android:textSize="48sp"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/tvDetAsetNama"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nama Aset"
+        android:textColor="#333333"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/tvDetAsetKategori"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Kategori Aset"
+        android:textColor="#757575"
+        android:textSize="14sp"
+        android:layout_marginBottom="24dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EEEEEE"
+        android:layout_marginBottom="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="12dp">
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Kondisi"
+            android:textColor="#9E9E9E"
+            android:textSize="13sp" />
+        <TextView
+            android:id="@+id/tvDetAsetKondisi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Baik"
+            android:textColor="#333333"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="12dp">
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Total Stok"
+            android:textColor="#9E9E9E"
+            android:textSize="13sp" />
+        <TextView
+            android:id="@+id/tvDetAsetStokTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 Unit"
+            android:textColor="#333333"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="12dp">
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Sedang Dipinjam"
+            android:textColor="#9E9E9E"
+            android:textSize="13sp" />
+        <TextView
+            android:id="@+id/tvDetAsetStokPinjam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 Unit"
+            android:textColor="#E65100"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="24dp">
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Tersedia"
+            android:textColor="#9E9E9E"
+            android:textSize="13sp" />
+        <TextView
+            android:id="@+id/tvDetAsetStokTersedia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 Unit"
+            android:textColor="#2E7D32"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDetPinjam"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="PINJAM SEKARANG"
+        android:textColor="@color/primary"
+        android:textStyle="bold"
+        app:cornerRadius="12dp"
+        app:strokeColor="@color/primary"
+        app:strokeWidth="2dp"
+        app:backgroundTint="#FFFFFF"
+        android:visibility="gone"
+        xmlns:app="http://schemas.android.com/apk/res-auto" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDetTambahStok"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="TAMBAH UNIT STOK"
+        android:textColor="@color/primary"
+        android:textStyle="bold"
+        app:cornerRadius="12dp"
+        app:strokeColor="@color/primary"
+        app:strokeWidth="2dp"
+        app:backgroundTint="#FFFFFF"
+        android:visibility="gone"
+        android:layout_marginTop="8dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDetHapus"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="HAPUS ASET"
+        android:textColor="#C75B5B"
+        android:textStyle="bold"
+        app:cornerRadius="12dp"
+        app:strokeColor="#C75B5B"
+        app:strokeWidth="2dp"
+        app:backgroundTint="#FFFFFF"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        xmlns:app="http://schemas.android.com/apk/res-auto" />
+
+</LinearLayout>

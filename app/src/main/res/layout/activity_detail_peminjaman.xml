@@ -1,250 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background_cream">
+    android:background="#FAF9F6">
 
-    <!-- Dark header -->
+    <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/header_dark"
-        android:orientation="vertical">
-
-        <View android:layout_width="match_parent" android:layout_height="8dp" />
+        android:background="#1A130F"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="10dp"
-            android:gravity="center_vertical">
-
+            android:id="@+id/btnBack"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_header_icon"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
             <ImageView
-                android:id="@+id/btnBack"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/abc_ic_ab_back_material"
-                android:tint="#FFFFFF"
-                android:layout_marginEnd="12dp"
-                android:clickable="true"
-                android:focusable="true" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Detail Peminjaman"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <!-- Status badge in header -->
-            <LinearLayout
-                android:id="@+id/statusBanner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_status_dipinjam"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="4dp">
-                <TextView
-                    android:id="@+id/tvStatusBanner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Dipinjam"
-                    android:textColor="@color/status_dipinjam_text"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
+                app:tint="#FFFFFF" />
         </LinearLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:text="Detail Peminjaman"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Scrollable content -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="14dp"
-            android:paddingTop="14dp"
-            android:paddingBottom="24dp">
+            android:padding="20dp">
 
-            <!-- ID Card header -->
+            <!-- Card ID & Status -->
             <LinearLayout
+                android:id="@+id/statusBannerRoot"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_button_primary"
-                android:orientation="horizontal"
-                android:padding="14dp"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="10dp">
+                android:background="@drawable/bg_approve_card_normal"
+                android:orientation="vertical"
+                android:paddingStart="6dp"
+                android:layout_marginBottom="24dp">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ID PEMINJAMAN"
-                        android:textColor="#A8D5D0"
-                        android:textSize="10sp"
-                        android:letterSpacing="0.08" />
-                    <TextView
-                        android:id="@+id/tvIdPeminjaman"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="#00001"
-                        android:textColor="#FFFFFF"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="📦"
-                    android:textSize="32sp" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp">
+                        <TextView
+                            android:id="@+id/tvIdPeminjaman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="#PM-0312"
+                            android:textColor="@color/text_hint"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tvStatusBanner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:background="@drawable/bg_badge_rounded"
+                            android:backgroundTint="#D7E5F0"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="6dp"
+                            android:text="• Aktif"
+                            android:textColor="@color/kpi_blue"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/tvNama"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rifqi"
+                        android:textColor="#1C1C1C"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tvNim"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="192310001 - Mhs. Aktif"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp" />
+                </LinearLayout>
             </LinearLayout>
 
-            <!-- Detail info card -->
+            <!-- Informasi Detail -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INFORMASI PEMINJAMAN"
+                android:textColor="@color/text_hint"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:layout_marginBottom="12dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_card"
+                android:background="@drawable/bg_card_white_rounded"
                 android:orientation="vertical"
-                android:padding="16dp"
-                android:layout_marginBottom="10dp">
+                android:padding="20dp"
+                android:elevation="2dp"
+                android:layout_marginBottom="24dp">
 
-                <!-- Row helper -->
-                <!-- Nama -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingVertical="8dp">
-                    <TextView android:layout_width="120dp" android:layout_height="wrap_content" android:text="Nama" android:textColor="@color/text_secondary" android:textSize="12sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=":" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginEnd="8dp" />
-                    <TextView android:id="@+id/tvNama" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="-" android:textColor="@color/text_primary" android:textSize="13sp" android:textStyle="bold" />
-                </LinearLayout>
-
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
-
-                <!-- NIM -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingVertical="8dp">
-                    <TextView android:layout_width="120dp" android:layout_height="wrap_content" android:text="NIM" android:textColor="@color/text_secondary" android:textSize="12sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=":" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginEnd="8dp" />
-                    <TextView android:id="@+id/tvNim" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="-" android:textColor="@color/text_primary" android:textSize="13sp" />
-                </LinearLayout>
-
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
-
-                <!-- Aset List -->
+                <!-- Barang -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Daftar Aset Dipinjam:"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="4dp" />
-
+                    android:text="Aset yang dipinjam"
+                    android:textColor="@color/text_hint"
+                    android:textSize="11sp" />
                 <LinearLayout
                     android:id="@+id/containerItems"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp" />
 
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginBottom="16dp" />
 
-                <!-- Tgl Pinjam -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingVertical="8dp">
-                    <TextView android:layout_width="120dp" android:layout_height="wrap_content" android:text="Waktu Pinjam" android:textColor="@color/text_secondary" android:textSize="12sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=":" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginEnd="8dp" />
-                    <TextView android:id="@+id/tvWaktuPinjam" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="-" android:textColor="@color/text_primary" android:textSize="13sp" />
-                </LinearLayout>
+                <!-- Waktu -->
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2">
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Waktu Pinjam" android:textColor="@color/text_hint" android:textSize="11sp" />
+                        <TextView android:id="@+id/tvWaktuPinjam" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="08 Mar 2026" android:textColor="#1C1C1C" android:textSize="14sp" android:textStyle="bold" android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Deadline Kembali" android:textColor="@color/text_hint" android:textSize="11sp" />
+                        <TextView android:id="@+id/tvWaktuKembali" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="11 Mar 2026" android:textColor="#C75B5B" android:textSize="14sp" android:textStyle="bold" android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                </GridLayout>
 
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
-
-                <!-- Tgl Rencana Kembali -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingVertical="8dp">
-                    <TextView android:layout_width="120dp" android:layout_height="wrap_content" android:text="Rencana Kembali" android:textColor="@color/text_secondary" android:textSize="12sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=":" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginEnd="8dp" />
-                    <TextView android:id="@+id/tvWaktuKembali" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="-" android:textColor="@color/text_primary" android:textSize="13sp" />
-                </LinearLayout>
-
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
-
-                <!-- Tgl Aktual Kembali (hidden if still active) -->
                 <LinearLayout
                     android:id="@+id/labelTanggalAktual"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingVertical="8dp"
+                    android:orientation="vertical"
+                    android:layout_marginTop="16dp"
                     android:visibility="gone">
-                    <TextView android:layout_width="120dp" android:layout_height="wrap_content" android:text="Tgl. Kembali" android:textColor="@color/text_secondary" android:textSize="12sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=":" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginEnd="8dp" />
-                    <TextView android:id="@+id/tvTanggalAktual" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="-" android:textColor="@color/status_kembali_text" android:textSize="13sp" android:textStyle="bold" android:visibility="gone" />
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginBottom="16dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tanggal Aktual Kembali" android:textColor="@color/text_hint" android:textSize="11sp" />
+                    <TextView android:id="@+id/tvTanggalAktual" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textColor="@color/kpi_green" android:textSize="14sp" android:textStyle="bold" android:layout_marginTop="4dp" />
                 </LinearLayout>
 
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider" />
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" />
 
                 <!-- Keperluan -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingVertical="8dp">
-                    <TextView android:layout_width="120dp" android:layout_height="wrap_content" android:text="Keperluan" android:textColor="@color/text_secondary" android:textSize="12sp" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=":" android:textColor="@color/text_secondary" android:textSize="12sp" android:layout_marginEnd="8dp" />
-                    <TextView android:id="@+id/tvKeperluan" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="-" android:textColor="@color/text_primary" android:textSize="13sp" />
-                </LinearLayout>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Keperluan" android:textColor="@color/text_hint" android:textSize="11sp" />
+                <TextView android:id="@+id/tvKeperluan" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Kebutuhan Praktikum" android:textColor="#1C1C1C" android:textSize="14sp" android:layout_marginTop="4dp" />
 
             </LinearLayout>
 
-            <!-- Buttons Container -->
-            <LinearLayout
+            <!-- Action Buttons -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnKembalikan"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="56dp"
+                android:text="Kembalikan Aset"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                app:cornerRadius="12dp"
+                app:backgroundTint="@color/primary"
+                android:elevation="4dp"
+                android:layout_marginBottom="12dp" />
 
-                <!-- Konfirmasi Kembali Button -->
-                <Button
-                    android:id="@+id/btnKembalikan"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/bg_button_primary"
-                    android:text="✓ Konfirmasi Pengembalian"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="10dp"
-                    android:visibility="visible" />
-
-                <!-- Modif/Edit Button -->
-                <Button
-                    android:id="@+id/btnModif"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/bg_button_secondary"
-                    android:text="✎ Modifikasi Peminjaman"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:visibility="visible" />
-            </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnModif"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Modifikasi Peminjaman"
+                android:textColor="@color/primary"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp"
+                app:strokeColor="@color/primary"
+                app:strokeWidth="2dp"
+                app:backgroundTint="#FFFFFF"
+                android:elevation="0dp"
+                android:layout_marginBottom="40dp" />
 
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

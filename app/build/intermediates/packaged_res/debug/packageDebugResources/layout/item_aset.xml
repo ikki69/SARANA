@@ -1,95 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Item aset - Figma style: circular icon + details -->
-<LinearLayout
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_marginBottom="6dp"
-    android:background="@drawable/bg_card"
-    android:padding="12dp"
-    android:gravity="center_vertical"
-    android:clickable="true"
-    android:focusable="true">
+    android:layout_margin="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="0dp"
+    android:id="@+id/cardAset">
 
-    <!-- Icon circle (Figma: colored circle per category) -->
     <LinearLayout
-        android:id="@+id/iconContainer"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:background="@drawable/bg_button_primary"
-        android:gravity="center"
-        android:layout_marginEnd="12dp">
+        android:id="@+id/cardContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/card_bg_1">
+
+        <!-- Icon -->
         <TextView
             android:id="@+id/tvAsetIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="💻"
-            android:textSize="20sp" />
-    </LinearLayout>
+            android:text="🔭"
+            android:textSize="40sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp" />
 
-    <!-- Main content -->
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
+        <!-- Info -->
         <TextView
             android:id="@+id/tvAsetNama"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nama Aset"
+            android:text="Oscilloscope Digital"
             android:textColor="@color/text_primary"
-            android:textSize="13sp"
-            android:textStyle="bold" />
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end" />
 
         <TextView
             android:id="@+id/tvAsetKategori"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Kategori • Kondisi"
-            android:textColor="@color/text_secondary"
-            android:textSize="11sp" />
-
-        <View android:layout_width="match_parent" android:layout_height="4dp" />
+            android:text="LAB HARDWARE"
+            android:textColor="@color/text_hint"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            android:layout_marginTop="2dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/tvAsetStok"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Stok: 5/5"
-                android:textColor="@color/text_secondary"
-                android:textSize="11sp" />
+                android:layout_weight="1"
+                android:text="8 unit"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:fontFamily="serif" />
 
-            <View android:layout_width="12dp" android:layout_height="match_parent" />
-
+            <!-- Status Badge -->
             <TextView
-                android:id="@+id/tvAsetDipinjam"
+                android:id="@+id/tvAsetStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dipinjam: 0"
-                android:textColor="@color/text_hint"
-                android:textSize="11sp" />
+                android:text="• Tersedia"
+                android:textColor="@color/status_available_text"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:background="@drawable/bg_badge_available" />
         </LinearLayout>
+
+        <!-- Hidden fields for compatibility with existing code if needed -->
+        <TextView android:id="@+id/tvAsetDipinjam" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+        <View android:id="@+id/iconContainer" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+
     </LinearLayout>
 
-    <!-- Status badge -->
-    <TextView
-        android:id="@+id/tvAsetStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tersedia"
-        android:textSize="10sp"
-        android:textStyle="bold"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="4dp"
-        android:background="@drawable/bg_status_dikembalikan"
-        android:textColor="@color/status_kembali_text" />
-
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

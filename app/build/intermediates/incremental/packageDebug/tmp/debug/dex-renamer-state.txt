@@ -1,9 +1,9 @@
-#Wed May 06 20:04:50 SGT 2026
-base.0=D\:\\data rifqi\\S4\\Pemrograman Perangkat Mobile\\PeminjamanAset\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-base.1=D\:\\data rifqi\\S4\\Pemrograman Perangkat Mobile\\PeminjamanAset\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.2=D\:\\data rifqi\\S4\\Pemrograman Perangkat Mobile\\PeminjamanAset\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\7\\classes.dex
-base.3=D\:\\data rifqi\\S4\\Pemrograman Perangkat Mobile\\PeminjamanAset\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
-base.4=D\:\\data rifqi\\S4\\Pemrograman Perangkat Mobile\\PeminjamanAset\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes3.dex
+#Fri May 08 02:17:46 SGT 2026
+base.0=D\:\\data rifqi\\S4\\Pemrograman Perangkat Mobile\\PeminjamanAset_Baru\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.1=D\:\\data rifqi\\S4\\Pemrograman Perangkat Mobile\\PeminjamanAset_Baru\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.2=D\:\\data rifqi\\S4\\Pemrograman Perangkat Mobile\\PeminjamanAset_Baru\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\7\\classes.dex
+base.3=D\:\\data rifqi\\S4\\Pemrograman Perangkat Mobile\\PeminjamanAset_Baru\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+base.4=D\:\\data rifqi\\S4\\Pemrograman Perangkat Mobile\\PeminjamanAset_Baru\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes3.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.2=7/classes.dex

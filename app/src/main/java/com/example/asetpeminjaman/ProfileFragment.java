@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,8 +31,20 @@ public class ProfileFragment extends Fragment {
 
         Button btnLogout = view.findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> {
-            Toast.makeText(getActivity(), "Berhasil keluar", Toast.LENGTH_SHORT).show();
-            if (getActivity() != null) getActivity().finish();
+            if (getActivity() != null) {
+                // Hapus data sesi di SharedPreferences
+                SharedPreferences.Editor editor = getActivity().getSharedPreferences("USER_DATA", Context.MODE_PRIVATE).edit();
+                editor.clear();
+                editor.apply();
+
+                Toast.makeText(getActivity(), "Berhasil keluar", Toast.LENGTH_SHORT).show();
+
+                // Pindah kembali ke LoginActivity dan bersihkan stack activity
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                getActivity().finish();
+            }
         });
 
         return view;

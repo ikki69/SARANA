@@ -3,11 +3,14 @@ package com.example.asetpeminjaman;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -15,32 +18,17 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * RiwayatActivity - Menampilkan riwayat semua peminjaman
- *
- * Konsep dari Modul 3 (View & ViewGroup):
- * - ListView dengan custom adapter
- * - Click event untuk filter tab
- *
- * Konsep dari Modul 4 (Layout):
- * - LinearLayout horizontal untuk tab filter
- *
- * Konsep dari Modul 5 (Activity Lifecycle):
- * - onResume() untuk refresh data saat kembali
- *
- * Konsep dari Modul 6 (Intent Eksplisit + putExtra):
- * - Klik item list -> DetailPeminjamanActivity
- * - Mengirimkan ID peminjaman via putExtra
- */
 public class RiwayatActivity extends AppCompatActivity {
 
     // Views (Modul 3)
     private ListView listViewRiwayat;
     private LinearLayout emptyRiwayat;
+    private EditText etSearch;
     private Button btnTabSemua, btnTabDipinjam, btnTabKembali;
     private ImageView btnBack;
 
     private DataManager dataManager;
+    private List<DataPeminjaman> listMaster;
     private List<DataPeminjaman> listTampil;
     private PeminjamanAdapter adapter;
 
@@ -56,22 +44,74 @@ public class RiwayatActivity extends AppCompatActivity {
         // Menghubungkan View (Modul 3 - findViewById)
         listViewRiwayat = findViewById(R.id.listViewRiwayat);
         emptyRiwayat = findViewById(R.id.emptyRiwayat);
+        etSearch = findViewById(R.id.etSearchRiwayat);
         btnTabSemua = findViewById(R.id.btnTabSemua);
         btnTabDipinjam = findViewById(R.id.btnTabDipinjam);
         btnTabKembali = findViewById(R.id.btnTabKembali);
         btnBack = findViewById(R.id.btnBack);
 
+        listMaster = new ArrayList<>();
         listTampil = new ArrayList<>();
 
         // Setup adapter ListView
         adapter = new PeminjamanAdapter(listTampil);
         listViewRiwayat.setAdapter(adapter);
 
+        // Search realtime
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { 
+                filterData(s.toString()); 
+            }
+            @Override public void afterTextChanged(Editable s) {}
+        });
+
         // Setup click listeners (Modul 3 - Click Event)
         setupClickListeners();
 
-        // Tampilkan semua data awal
-        tampilkanData("SEMUA");
+        // Cek filter dari Intent (jika ada)
+        String filterExtra = getIntent().getStringExtra("FILTER");
+        if (filterExtra != null) {
+            filterAktif = filterExtra;
+        }
+
+        // Tampilkan data awal
+        tampilkanData(filterAktif);
+        updateTabStyle(filterAktif);
+    }
+
+    private void filterData(String query) {
+        listTampil.clear();
+        if (query.isEmpty()) {
+            listTampil.addAll(listMaster);
+        } else {
+            String q = query.toLowerCase();
+            for (DataPeminjaman p : listMaster) {
+                // Cari berdasarkan Nama Peminjam atau Nama Aset
+                boolean matchNama = p.getNama().toLowerCase().contains(q);
+                boolean matchAset = false;
+                for (ItemPinjam item : p.getItems()) {
+                    if (item.getNamaAset().toLowerCase().contains(q)) {
+                        matchAset = true;
+                        break;
+                    }
+                }
+                
+                if (matchNama || matchAset) {
+                    listTampil.add(p);
+                }
+            }
+        }
+        adapter.notifyDataSetChanged();
+        
+        // Toggle empty state view
+        if (listTampil.isEmpty()) {
+            listViewRiwayat.setVisibility(View.GONE);
+            emptyRiwayat.setVisibility(View.VISIBLE);
+        } else {
+            listViewRiwayat.setVisibility(View.VISIBLE);
+            emptyRiwayat.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -138,33 +178,25 @@ public class RiwayatActivity extends AppCompatActivity {
      * Menampilkan data sesuai filter yang dipilih
      */
     private void tampilkanData(String filter) {
-        listTampil.clear();
+        listMaster.clear();
 
         switch (filter) {
             case "SEMUA":
-                listTampil.addAll(dataManager.getAllPeminjaman());
+                listMaster.addAll(dataManager.getAllPeminjaman());
                 break;
             case "DIPINJAM":
-                listTampil.addAll(dataManager.getPeminjamanAktif());
+                listMaster.addAll(dataManager.getPeminjamanAktif());
                 break;
             case "KEMBALI":
-                listTampil.addAll(dataManager.getPeminjamanSelesai());
+                listMaster.addAll(dataManager.getPeminjamanSelesai());
                 break;
         }
 
         // Balik urutan: terbaru di atas
-        java.util.Collections.reverse(listTampil);
+        java.util.Collections.reverse(listMaster);
 
-        adapter.notifyDataSetChanged();
-
-        // Toggle empty state view
-        if (listTampil.isEmpty()) {
-            listViewRiwayat.setVisibility(View.GONE);
-            emptyRiwayat.setVisibility(View.VISIBLE);
-        } else {
-            listViewRiwayat.setVisibility(View.VISIBLE);
-            emptyRiwayat.setVisibility(View.GONE);
-        }
+        // Terapkan filter pencarian yang mungkin sedang aktif
+        filterData(etSearch.getText().toString());
     }
 
     /**
@@ -231,7 +263,7 @@ public class RiwayatActivity extends AppCompatActivity {
             TextView tvTanggal = convertView.findViewById(R.id.tvItemTanggal);
             TextView tvStatus = convertView.findViewById(R.id.tvItemStatus);
 
-            tvNama.setText(p.getNama());
+            tvNama.setText(p.getNama() + " (@" + p.getAccountUsername() + ")");
             tvNim.setText(p.getNim());
             
             // Tampilkan list item secara dinamis
@@ -249,6 +281,13 @@ public class RiwayatActivity extends AppCompatActivity {
             tvTanggal.setText("Pinjam: " + p.getTanggalPinjam()
                     + "  |  Kembali: " + p.getTanggalRencanaKembali());
             tvStatus.setText(p.getStatus());
+
+            // Tambahkan Klik pada kartu
+            convertView.setOnClickListener(v -> {
+                Intent intent = new Intent(getContext(), DetailPeminjamanActivity.class);
+                intent.putExtra("PEMINJAMAN_ID", p.getId());
+                getContext().startActivity(intent);
+            });
 
             // Ubah warna status badge sesuai kondisi
             if (p.isAktif()) {

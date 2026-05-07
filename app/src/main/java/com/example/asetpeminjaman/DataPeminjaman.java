@@ -22,6 +22,7 @@ public class DataPeminjaman {
     private String tanggalAktualKembali;
     private String keperluan;
     private String status; // "Menunggu Persetujuan", "Dipinjam", "Menunggu Pengembalian", "Dikembalikan", "Ditolak"
+    private String priority = "Normal"; // "Normal", "Mendesak"
 
     // Constructor kosong diperlukan untuk Firebase
     public DataPeminjaman() {}
@@ -116,6 +117,9 @@ public class DataPeminjaman {
     
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    public String getPriority() { return priority; }
+    public void setPriority(String priority) { this.priority = priority; }
 
     @Exclude
     public boolean isAktif() {

@@ -1,46 +1,25 @@
 package com.example.asetpeminjaman;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.Calendar;
+import androidx.appcompat.app.AppCompatActivity;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import androidx.core.content.res.ResourcesCompat;
 
-/**
- * DetailPeminjamanActivity - Menampilkan detail satu data peminjaman
- *
- * Konsep dari Modul 3 (View & ViewGroup):
- * - TextView untuk menampilkan data detail
- * - Button untuk aksi konfirmasi pengembalian
- * - ImageView untuk tombol back
- *
- * Konsep dari Modul 5 (Activity Lifecycle):
- * - onResume() untuk refresh tampilan
- *
- * Konsep dari Modul 6 (Intent Eksplisit + getIntent/getStringExtra):
- * - Menerima ID peminjaman dari Activity pengirim via getIntent().getIntExtra()
- * - Setelah aksi selesai, mengirim result back ke RiwayatActivity
- */
 public class DetailPeminjamanActivity extends AppCompatActivity {
 
-    // Deklarasi Views (Modul 3)
-    private TextView tvIdPeminjaman, tvNama, tvNim;
-    private TextView tvWaktuPinjam, tvWaktuKembali;
-    private TextView tvTanggalAktual, tvKeperluan, tvStatusBanner;
-    private LinearLayout containerItems;
+    private TextView tvId, tvNama, tvNim, tvWaktuPinjam, tvWaktuKembali, tvTanggalAktual, tvKeperluan, tvStatusBanner;
+    private LinearLayout containerItems, labelTanggalAktual, statusBannerRoot;
     private Button btnKembalikan, btnModif;
-    private ImageView btnBack;
-    private LinearLayout statusBanner, labelTanggalAktual;
-
     private DataManager dataManager;
-    private int peminjamanId = -1;
-    private DataPeminjaman peminjaman;
+    private DataPeminjaman p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,205 +27,117 @@ public class DetailPeminjamanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_peminjaman);
 
         dataManager = DataManager.getInstance();
+        int idPeminjaman = getIntent().getIntExtra("PEMINJAMAN_ID", -1);
+        p = dataManager.getPeminjamanById(idPeminjaman);
 
-        // Menghubungkan View (Modul 3 - findViewById)
-        initViews();
-
-        // Menerima data ID dari Intent (Modul 6 - getIntent().getIntExtra())
-        Intent intent = getIntent();
-        peminjamanId = intent.getIntExtra("PEMINJAMAN_ID", -1);
-
-        if (peminjamanId == -1) {
+        if (p == null) {
             Toast.makeText(this, "Data tidak ditemukan", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
 
-        // Ambil data peminjaman berdasarkan ID yang diterima
-        peminjaman = dataManager.getPeminjamanById(peminjamanId);
-
-        if (peminjaman == null) {
-            Toast.makeText(this, "Data peminjaman tidak valid", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
-        }
-
-        // Tampilkan data
-        tampilkanDetail();
-
-        // Setup click listeners (Modul 3 - Click Event)
-        setupClickListeners();
+        bindViews();
+        renderData();
+        setupListeners();
     }
 
-    /**
-     * Inisialisasi semua View dengan findViewById (Modul 3)
-     */
-    private void initViews() {
-        tvIdPeminjaman = findViewById(R.id.tvIdPeminjaman);
+    private void bindViews() {
+        tvId = findViewById(R.id.tvIdPeminjaman);
         tvNama = findViewById(R.id.tvNama);
         tvNim = findViewById(R.id.tvNim);
-        containerItems = findViewById(R.id.containerItems);
         tvWaktuPinjam = findViewById(R.id.tvWaktuPinjam);
         tvWaktuKembali = findViewById(R.id.tvWaktuKembali);
         tvTanggalAktual = findViewById(R.id.tvTanggalAktual);
-        labelTanggalAktual = findViewById(R.id.labelTanggalAktual);
         tvKeperluan = findViewById(R.id.tvKeperluan);
         tvStatusBanner = findViewById(R.id.tvStatusBanner);
+        statusBannerRoot = findViewById(R.id.statusBannerRoot);
+        containerItems = findViewById(R.id.containerItems);
+        labelTanggalAktual = findViewById(R.id.labelTanggalAktual);
         btnKembalikan = findViewById(R.id.btnKembalikan);
         btnModif = findViewById(R.id.btnModif);
-        btnBack = findViewById(R.id.btnBack);
-        statusBanner = findViewById(R.id.statusBanner);
+        findViewById(R.id.btnBack).setOnClickListener(v -> finish());
     }
 
-    /**
-     * Mengisi semua TextView dengan data peminjaman
-     * (Modul 3 - TextView.setText())
-     */
-    private void tampilkanDetail() {
-        // Set nilai ke setiap TextView (Modul 3 - View)
-        tvIdPeminjaman.setText(peminjaman.getFormattedId());
-        tvNama.setText(peminjaman.getNama());
-        tvNim.setText(peminjaman.getNim());
+    private void renderData() {
+        tvId.setText("#PM-" + String.format("%04d", p.getId()));
+        tvNama.setText(p.getNama());
+        tvNim.setText(p.getNim() + " - Mhs. Aktif");
+        tvWaktuPinjam.setText(p.getTanggalPinjam());
+        tvWaktuKembali.setText(p.getTanggalRencanaKembali());
+        tvKeperluan.setText(p.getKeperluan());
+
+        tvStatusBanner.setText(p.getStatus());
         
-        // Tampilkan daftar item
-        containerItems.removeAllViews();
-        for (ItemPinjam item : peminjaman.getItems()) {
-            View itemView = getLayoutInflater().inflate(R.layout.item_detail_aset, null);
-            TextView tvItemNama = itemView.findViewById(R.id.tvItemNama);
-            TextView tvItemJumlah = itemView.findViewById(R.id.tvItemJumlah);
-            
-            tvItemNama.setText(item.getNamaAset());
-            tvItemJumlah.setText(item.getJumlah() + " unit");
-            
-            containerItems.addView(itemView);
-        }
-
-        tvWaktuPinjam.setText(peminjaman.getTanggalPinjam() + " " + peminjaman.getJamPinjam());
-        tvWaktuKembali.setText(peminjaman.getTanggalRencanaKembali() + " " + peminjaman.getJamRencanaKembali());
-        tvKeperluan.setText(peminjaman.getKeperluan());
-        tvStatusBanner.setText(peminjaman.getStatus());
-
-        // Tampilkan status dengan warna yang sesuai
-        if (peminjaman.getStatus().equals("Dipinjam")) {
-            tvStatusBanner.setTextColor(getResources().getColor(R.color.orange));
-            statusBanner.setBackground(getResources().getDrawable(R.drawable.bg_status_dipinjam));
+        // Default Button Visibility
+        btnKembalikan.setVisibility(View.GONE);
+        btnModif.setVisibility(View.GONE);
+        
+        if ("Dipinjam".equals(p.getStatus())) {
+            statusBannerRoot.setBackgroundResource(R.drawable.bg_approve_card_normal);
+            tvStatusBanner.getBackground().setTint(0xFFD7E5F0);
+            tvStatusBanner.setTextColor(0xFF5B8DB8);
+            labelTanggalAktual.setVisibility(View.GONE);
             btnKembalikan.setVisibility(View.VISIBLE);
-            btnKembalikan.setText("Ajukan Pengembalian");
-            btnModif.setVisibility(View.VISIBLE);
+        } else if ("Menunggu Persetujuan".equals(p.getStatus())) {
+            statusBannerRoot.setBackgroundResource(R.drawable.bg_approve_card_teal);
+            tvStatusBanner.getBackground().setTint(0xFFEEEEEE);
+            tvStatusBanner.setTextColor(0xFF9E9E9E);
             labelTanggalAktual.setVisibility(View.GONE);
-            tvTanggalAktual.setVisibility(View.GONE);
-        } else if (peminjaman.getStatus().equals("Menunggu Pengembalian")) {
-            tvStatusBanner.setText("Menunggu Persetujuan Kembali");
-            tvStatusBanner.setTextColor(getResources().getColor(R.color.orange));
-            statusBanner.setBackground(getResources().getDrawable(R.drawable.bg_status_dipinjam));
-            btnKembalikan.setVisibility(View.GONE);
-            btnModif.setVisibility(View.GONE);
+            btnModif.setVisibility(View.VISIBLE);
+        } else if ("Menunggu Pengembalian".equals(p.getStatus())) {
+            statusBannerRoot.setBackgroundResource(R.drawable.bg_approve_card_teal);
+            tvStatusBanner.getBackground().setTint(0xFFFDF1D3);
+            tvStatusBanner.setTextColor(0xFFC9A227);
+            labelTanggalAktual.setVisibility(View.GONE);
+        } else if ("Dikembalikan".equals(p.getStatus())) {
+            statusBannerRoot.setBackgroundResource(R.drawable.bg_approve_card_urgent);
+            tvStatusBanner.getBackground().setTint(0xFFD1EAE7);
+            tvStatusBanner.setTextColor(0xFF2B7A6F);
+            tvStatusBanner.setText("• Selesai");
+            
             labelTanggalAktual.setVisibility(View.VISIBLE);
             tvTanggalAktual.setVisibility(View.VISIBLE);
-            tvTanggalAktual.setText("Menunggu Admin...");
-        } else if (peminjaman.getStatus().equals("Menunggu Persetujuan")) {
-            tvStatusBanner.setTextColor(getResources().getColor(R.color.orange));
-            statusBanner.setBackground(getResources().getDrawable(R.drawable.bg_status_dipinjam));
-            btnKembalikan.setVisibility(View.GONE);
-            btnModif.setVisibility(View.VISIBLE);
+            tvTanggalAktual.setText(p.getTanggalAktualKembali());
+        } else {
+            // Ditolak / Lainnya
             labelTanggalAktual.setVisibility(View.GONE);
-        } else {
-            tvStatusBanner.setTextColor(getResources().getColor(R.color.green));
-            statusBanner.setBackground(getResources().getDrawable(R.drawable.bg_status_dikembalikan));
-            btnKembalikan.setVisibility(View.GONE);
-            btnModif.setVisibility(View.GONE);
+        }
 
-            // Tampilkan tanggal aktual kembali (Modul 3 - TextView visibility)
-            labelTanggalAktual.setVisibility(View.VISIBLE);
-            tvTanggalAktual.setVisibility(View.VISIBLE);
-            tvTanggalAktual.setText(peminjaman.getTanggalAktualKembali());
+        containerItems.removeAllViews();
+        for (ItemPinjam item : p.getItems()) {
+            TextView tvItem = new TextView(this);
+            tvItem.setText("• " + item.getNamaAset() + " x" + item.getJumlah());
+            tvItem.setTextColor(0xFF1C1C1C);
+            tvItem.setTextSize(14);
+            tvItem.setPadding(0, 4, 0, 4);
+            containerItems.addView(tvItem);
         }
     }
 
-    /**
-     * Setup click event listeners (Modul 3 - Button dan Click Event)
-     */
-    private void setupClickListeners() {
-
-        // Tombol Back - kembali ke activity sebelumnya
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish(); // Tutup activity ini
+    private void setupListeners() {
+        btnKembalikan.setOnClickListener(v -> {
+            String today = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+            boolean success = dataManager.ajukanPengembalian(p.getId(), today);
+            
+            if (success) {
+                Toast.makeText(this, "Pengembalian diajukan, menunggu persetujuan Admin", Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(this, "Gagal mengajukan pengembalian", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Tombol Konfirmasi Pengembalian
-        btnKembalikan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                konfirmasiPengembalian();
+        btnModif.setOnClickListener(v -> {
+            if (!"Menunggu Persetujuan".equals(p.getStatus())) {
+                Toast.makeText(this, "Hanya peminjaman yang menunggu persetujuan yang dapat dimodifikasi", Toast.LENGTH_SHORT).show();
+                return;
             }
+            
+            Intent intent = new Intent(this, FormPeminjamanActivity.class);
+            intent.putExtra("IS_EDIT_MODE", true);
+            intent.putExtra("PEMINJAMAN_ID", p.getId());
+            startActivity(intent);
+            finish();
         });
-
-        // Tombol Modifikasi
-        btnModif.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DetailPeminjamanActivity.this, FormPeminjamanActivity.class);
-                intent.putExtra("PEMINJAMAN_ID", peminjamanId);
-                intent.putExtra("IS_EDIT_MODE", true);
-                startActivity(intent);
-            }
-        });
-    }
-
-    /**
-     * Proses konfirmasi pengembalian aset
-     * (Modul 3 - Button Click Event + Toast)
-     */
-    private void konfirmasiPengembalian() {
-        new AlertDialog.Builder(this)
-                .setTitle("Konfirmasi Pengembalian")
-                .setMessage("Apakah Anda yakin ingin mengembalikan aset ini? Permintaan akan dikirimkan ke Admin untuk disetujui.")
-                .setPositiveButton("Ya, Kembalikan", (dialog, which) -> {
-                    prosesKirimKeAdmin();
-                })
-                .setNegativeButton("Batal", null)
-                .show();
-    }
-
-    private void prosesKirimKeAdmin() {
-        // Dapatkan tanggal hari ini sebagai tanggal aktual kembali
-        Calendar calendar = Calendar.getInstance();
-        String tanggalKembali = String.format("%02d/%02d/%04d",
-                calendar.get(Calendar.DAY_OF_MONTH),
-                calendar.get(Calendar.MONTH) + 1,
-                calendar.get(Calendar.YEAR));
-
-        // Proses pengembalian melalui DataManager
-        boolean berhasil = dataManager.ajukanPengembalian(peminjamanId, tanggalKembali);
-
-        if (berhasil) {
-            // Update referensi data
-            peminjaman = dataManager.getPeminjamanById(peminjamanId);
-
-            // Refresh tampilan detail
-            tampilkanDetail();
-
-            // Dialog informasi sukses terkirim
-            new AlertDialog.Builder(this)
-                    .setTitle("Berhasil")
-                    .setMessage("Permintaan pengembalian telah dikirim ke Admin. Mohon tunggu persetujuan agar status berubah menjadi Selesai.")
-                    .setPositiveButton("OK", null)
-                    .show();
-        } else {
-            Toast.makeText(this, "Gagal mengirim permintaan", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Refresh data saat kembali ke halaman ini (Modul 5 - Lifecycle)
-        if (peminjaman != null) {
-            peminjaman = dataManager.getPeminjamanById(peminjamanId);
-            if (peminjaman != null) tampilkanDetail();
-        }
     }
 }

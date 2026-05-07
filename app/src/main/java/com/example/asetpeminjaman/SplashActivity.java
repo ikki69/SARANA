@@ -2,9 +2,9 @@ package com.example.asetpeminjaman;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Toast;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -18,8 +18,19 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Berpindah ke LoginActivity sebagai gerbang utama
-                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                // Cek apakah user sudah login
+                SharedPreferences pref = getSharedPreferences("USER_DATA", MODE_PRIVATE);
+                String username = pref.getString("username", null);
+
+                Intent intent;
+                if (username != null) {
+                    // Jika sudah login, langsung ke MainActivity
+                    intent = new Intent(SplashActivity.this, MainActivity.class);
+                } else {
+                    // Jika belum login, ke LoginActivity
+                    intent = new Intent(SplashActivity.this, LoginActivity.class);
+                }
+
                 startActivity(intent);
                 finish();
             }

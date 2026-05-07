@@ -1,6 +1,19 @@
 <resources>
-    <string name="app_name">Sistem Peminjaman Aset</string>
-    <string name="app_subtitle">Jurusan Teknik Komputer</string>
+    <string name="app_name">SARANA</string>
+    <string name="app_subtitle">Sistem Peminjaman Aset Jurusan JTIK</string>
+    <string name="login_title">SIGN IN</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="please_wait">PLEASE WAIT...</string>
+    <string name="logo_desc">Logo App</string>
+    <string name="welcome_user">Halo, %s!</string>
+    <string name="peminjaman_aktif_empty">Belum ada peminjaman aktif</string>
+    <string name="item_dipinjam_format">%d item dipinjam\ndari %d total inventaris</string>
+    <string name="user_pinjam_format">Anda sedang meminjam\n%d item saat ini</string>
+    <string name="progress_fraction">%d / %d</string>
+    <string name="progress_percent">%d%% dari kapasitas</string>
+    <string name="pinjam_kembali_format">Pinjam: %s | Kembali: %s</string>
+    <string name="logout_success">Berhasil keluar</string>
 
     <!-- Labels -->
     <string name="label_nama_peminjam">Nama Peminjam</string>

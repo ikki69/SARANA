@@ -16,6 +16,25 @@ public class DataManager {
 
     private List<DataPeminjaman> listPeminjaman;
     private List<DataAset> listAset;
+    private List<DataChangeListener> listeners = new ArrayList<>();
+
+    public interface DataChangeListener {
+        void onDataChanged();
+    }
+
+    public void addListener(DataChangeListener listener) {
+        if (!listeners.contains(listener)) listeners.add(listener);
+    }
+
+    public void removeListener(DataChangeListener listener) {
+        listeners.remove(listener);
+    }
+
+    private void notifyListeners() {
+        for (DataChangeListener listener : listeners) {
+            listener.onDataChanged();
+        }
+    }
 
     private DataManager() {
         db = FirebaseFirestore.getInstance();
@@ -50,6 +69,7 @@ public class DataManager {
                 if (listAset.isEmpty()) {
                     inisialisasiDataAset();
                 }
+                notifyListeners();
             }
         });
     }
@@ -78,6 +98,7 @@ public class DataManager {
                     DataPeminjaman p = doc.toObject(DataPeminjaman.class);
                     listPeminjaman.add(p);
                 }
+                notifyListeners();
             }
         });
     }
@@ -116,6 +137,25 @@ public class DataManager {
         peminjamanRef.document(id).set(peminjaman);
         
         // Stok TIDAK dikurangi di sini karena butuh persetujuan Admin
+    }
+
+    public void tambahAset(DataAset aset) {
+        // Cari ID tertinggi untuk menentukan ID baru
+        int maxId = 0;
+        for (DataAset a : listAset) {
+            if (a.getId() > maxId) maxId = a.getId();
+        }
+        aset.setId(maxId + 1);
+        
+        asetRef.document(String.valueOf(aset.getId())).set(aset);
+    }
+
+    public void hapusAset(int id) {
+        asetRef.document(String.valueOf(id)).delete();
+    }
+
+    public void updateStokAset(int id, int stokBaru) {
+        asetRef.document(String.valueOf(id)).update("stokTotal", stokBaru);
     }
 
     public void setStatusPeminjaman(int id, String statusBaru) {
@@ -246,15 +286,60 @@ public class DataManager {
         return null;
     }
 
-    public int getTotalAset() { return listAset.size(); }
-    public int getTotalDipinjam() {
+    public int getTotalAset() {
+        int total = 0;
+        for (DataAset a : listAset) {
+            total += a.getStokTotal();
+        }
+        return total;
+    }
+
+    public int getTotalJenisAset() { return listAset.size(); }
+    public int getTotalDipinjam(String username, boolean isAdmin) {
         int count = 0;
-        for (DataPeminjaman p : listPeminjaman) if (p.getStatus().equals("Dipinjam")) count++;
+        for (DataPeminjaman p : listPeminjaman) {
+            if ("Dipinjam".equals(p.getStatus())) {
+                if (isAdmin || username.equals(p.getAccountUsername())) {
+                    count++;
+                }
+            }
+        }
         return count;
     }
-    public int getTotalDikembalikan() {
+
+    public int getTotalDikembalikan(String username, boolean isAdmin) {
         int count = 0;
-        for (DataPeminjaman p : listPeminjaman) if (p.getStatus().equals("Dikembalikan")) count++;
+        for (DataPeminjaman p : listPeminjaman) {
+            if ("Dikembalikan".equals(p.getStatus())) {
+                if (isAdmin || username.equals(p.getAccountUsername())) {
+                    count++;
+                }
+            }
+        }
         return count;
+    }
+
+    public int getTotalTerlambat(String username, boolean isAdmin) {
+        int count = 0;
+        for (DataPeminjaman p : listPeminjaman) {
+            if (DateHelper.isLate(p.getTanggalRencanaKembali(), p.getStatus())) {
+                if (isAdmin || username.equals(p.getAccountUsername())) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    public int getTotalItemDipinjam(String username, boolean isAdmin) {
+        int total = 0;
+        for (DataPeminjaman p : listPeminjaman) {
+            if ("Dipinjam".equals(p.getStatus())) {
+                if (isAdmin || username.equals(p.getAccountUsername())) {
+                    total += p.getJumlah();
+                }
+            }
+        }
+        return total;
     }
 }
