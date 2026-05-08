@@ -39,6 +39,7 @@ public class InventoryFragment extends Fragment {
     private List<DataAset> listAsetFilter;
     private AsetRecyclerAdapter adapter;
     private String userRole = "user";
+    private DataManager.DataChangeListener dataListener;
 
     @Nullable
     @Override
@@ -46,6 +47,10 @@ public class InventoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_inventory, container, false);
 
         dataManager = DataManager.getInstance();
+
+        dataListener = this::refreshData;
+        dataManager.addListener(dataListener);
+
         recyclerViewAset = view.findViewById(R.id.recyclerViewAset);
         tvTotalItem = view.findViewById(R.id.tvTotalItem);
         containerKapasitas = view.findViewById(R.id.containerKapasitas);
@@ -112,7 +117,6 @@ public class InventoryFragment extends Fragment {
             DataAset baru = new DataAset(0, nama, kategori, stok, kondisi);
             dataManager.tambahAset(baru);
             Toast.makeText(getContext(), "Aset berhasil ditambahkan", Toast.LENGTH_SHORT).show();
-            refreshData();
         });
         builder.setNegativeButton("Batal", null);
         builder.show();
@@ -158,7 +162,6 @@ public class InventoryFragment extends Fragment {
                         .setPositiveButton("Ya, Hapus", (d, w) -> {
                             dataManager.hapusAset(aset.getId());
                             Toast.makeText(getContext(), "Aset dihapus", Toast.LENGTH_SHORT).show();
-                            refreshData();
                         })
                         .setNegativeButton("Batal", null)
                         .show();
@@ -186,7 +189,6 @@ public class InventoryFragment extends Fragment {
                 int newTotal = aset.getStokTotal() + extra;
                 dataManager.updateStokAset(aset.getId(), newTotal);
                 Toast.makeText(getContext(), "Stok berhasil diperbarui", Toast.LENGTH_SHORT).show();
-                refreshData();
             }
         });
         
@@ -204,6 +206,14 @@ public class InventoryFragment extends Fragment {
             case "Alat Ukur": return "📏";
             case "Jaringan": return "🌐";
             default: return "📦";
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (dataManager != null && dataListener != null) {
+            dataManager.removeListener(dataListener);
         }
     }
 

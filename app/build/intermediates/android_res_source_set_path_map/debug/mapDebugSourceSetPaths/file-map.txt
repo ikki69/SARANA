@@ -1,9 +1,0 @@
-com.example.asetpeminjaman.app-pngs-0 D:\data rifqi\S4\Pemrograman Perangkat Mobile\PeminjamanAset_Baru\app\build\generated\res\pngs\debug
-com.example.asetpeminjaman.app-res-1 D:\data rifqi\S4\Pemrograman Perangkat Mobile\PeminjamanAset_Baru\app\build\generated\res\processDebugGoogleServices
-com.example.asetpeminjaman.app-resValues-2 D:\data rifqi\S4\Pemrograman Perangkat Mobile\PeminjamanAset_Baru\app\build\generated\res\resValues\debug
-com.example.asetpeminjaman.app-updated_navigation_xml-3 D:\data rifqi\S4\Pemrograman Perangkat Mobile\PeminjamanAset_Baru\app\build\generated\updated_navigation_xml\debug
-com.example.asetpeminjaman.app-packageDebugResources-4 D:\data rifqi\S4\Pemrograman Perangkat Mobile\PeminjamanAset_Baru\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
-com.example.asetpeminjaman.app-packageDebugResources-5 D:\data rifqi\S4\Pemrograman Perangkat Mobile\PeminjamanAset_Baru\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
-com.example.asetpeminjaman.app-debug-6 D:\data rifqi\S4\Pemrograman Perangkat Mobile\PeminjamanAset_Baru\app\build\intermediates\merged_res\debug\mergeDebugResources
-com.example.asetpeminjaman.app-debug-7 D:\data rifqi\S4\Pemrograman Perangkat Mobile\PeminjamanAset_Baru\app\src\debug\res
-com.example.asetpeminjaman.app-main-8 D:\data rifqi\S4\Pemrograman Perangkat Mobile\PeminjamanAset_Baru\app\src\main\res

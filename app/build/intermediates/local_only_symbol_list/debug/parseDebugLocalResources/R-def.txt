@@ -60,6 +60,7 @@ color text_teal
 color text_white
 color white
 drawable bg_approve_card_normal
+drawable bg_approve_card_orange
 drawable bg_approve_card_teal
 drawable bg_approve_card_urgent
 drawable bg_badge_available

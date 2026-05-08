@@ -34,7 +34,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ASET LABORATORIUM · JTIK"
+                android:text="ASET JTIK"
                 android:textColor="@color/accent_teal"
                 android:textSize="11sp"
                 android:textStyle="bold"
@@ -50,14 +50,6 @@
                 android:fontFamily="serif"
                 android:textStyle="bold"
                 android:layout_marginTop="4dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tersebar di 5 laboratorium aktif"
-                android:textColor="@color/text_secondary"
-                android:textSize="13sp"
-                android:layout_marginTop="2dp" />
 
             <!-- Capacity Section -->
             <TextView

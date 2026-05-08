@@ -1,5 +1,6 @@
 package com.example.asetpeminjaman;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,13 +100,13 @@ public class ApproveFragment extends Fragment {
             LinearLayout containerItems = convertView.findViewById(R.id.containerApproveItems);
             View btnApprove = convertView.findViewById(R.id.btnApproveRequest);
             View btnReject = convertView.findViewById(R.id.btnRejectRequest);
+            View btnMoreOptions = convertView.findViewById(R.id.btnMoreOptions);
 
             // Styling based on request type
             boolean isReturnRequest = "Menunggu Pengembalian".equals(request.getStatus());
             
             if (isReturnRequest) {
-                root.setBackgroundResource(R.drawable.bg_approve_card_normal);
-                root.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFFE8883A)); // Orange for return
+                root.setBackgroundResource(R.drawable.bg_approve_card_orange);
                 tvPriority.setText("• Pengembalian");
                 tvPriority.getBackground().setTint(0xFFFDF1D3);
                 tvPriority.setTextColor(0xFFE8883A);
@@ -116,7 +117,7 @@ public class ApproveFragment extends Fragment {
                 tvPriority.setTextColor(0xFFC75B5B);
             } else {
                 root.setBackgroundResource(R.drawable.bg_approve_card_normal);
-                tvPriority.setText("• Normal");
+                tvPriority.setText("• Pinjam");
                 tvPriority.getBackground().setTint(0xFFD7E5F0);
                 tvPriority.setTextColor(0xFF5B8DB8);
             }
@@ -146,6 +147,12 @@ public class ApproveFragment extends Fragment {
                 String targetStatus = request.getStatus().equals("Menunggu Persetujuan") ? "Ditolak" : "Dipinjam";
                 dataManager.setStatusPeminjaman(request.getId(), targetStatus);
                 Toast.makeText(getContext(), "Permintaan ditolak", Toast.LENGTH_SHORT).show();
+            });
+
+            btnMoreOptions.setOnClickListener(v -> {
+                Intent intent = new Intent(getActivity(), DetailPeminjamanActivity.class);
+                intent.putExtra("PEMINJAMAN_ID", request.getId());
+                startActivity(intent);
             });
 
             return convertView;

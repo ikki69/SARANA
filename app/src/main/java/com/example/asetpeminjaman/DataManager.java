@@ -5,7 +5,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DataManager {
 
@@ -13,6 +15,7 @@ public class DataManager {
     private final FirebaseFirestore db;
     private final CollectionReference peminjamanRef;
     private final CollectionReference asetRef;
+    private final CollectionReference usersRef;
 
     private List<DataPeminjaman> listPeminjaman;
     private List<DataAset> listAset;
@@ -40,13 +43,15 @@ public class DataManager {
         db = FirebaseFirestore.getInstance();
         peminjamanRef = db.collection("peminjaman");
         asetRef = db.collection("aset");
+        usersRef = db.collection("users");
         
         listPeminjaman = new ArrayList<>();
         listAset = new ArrayList<>();
         
-        // Inisialisasi data aset ke Firestore jika masih kosong
+        // Inisialisasi data ke Firestore jika masih kosong
         syncAsetFromFirestore();
         syncPeminjamanFromFirestore();
+        syncUsersFromFirestore();
     }
 
     public static synchronized DataManager getInstance() {
@@ -72,6 +77,38 @@ public class DataManager {
                 notifyListeners();
             }
         });
+    }
+
+    private void syncUsersFromFirestore() {
+        // Cek apakah salah satu user contoh sudah ada
+        usersRef.document("PTIK A 23").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (task.getResult() == null || !task.getResult().exists()) {
+                    // Jika user contoh belum ada, lakukan inisialisasi masal
+                    inisialisasiDataUsers();
+                }
+            }
+        });
+    }
+
+    private void inisialisasiDataUsers() {
+        String[] prodiList = {"PTIK", "TEKOM"};
+        int[] cohorts = {23, 24, 25};
+
+        for (String prodi : prodiList) {
+            char maxClass = prodi.equals("PTIK") ? 'I' : 'F';
+            for (char c = 'A'; c <= maxClass; c++) {
+                for (int year : cohorts) {
+                    String username = prodi + " " + c + " " + year;
+                    Map<String, Object> user = new HashMap<>();
+                    user.put("username", username);
+                    user.put("password", "Maba24ft"); // Default password: Maba24ft
+                    user.put("role", "user");
+
+                    usersRef.document(username).set(user);
+                }
+            }
+        }
     }
 
     private void inisialisasiDataAset() {

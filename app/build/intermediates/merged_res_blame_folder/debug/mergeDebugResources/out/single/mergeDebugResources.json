@@ -20,6 +20,14 @@
         "source": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-main-40:\\drawable\\logo_aset.png"
     },
     {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_fragment_inventory.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/fragment_inventory.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_approve_card_orange.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_approve_card_orange.xml"
+    },
+    {
         "merged": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-debug-38:\\drawable_bg_btn_filter_inactive.xml.flat",
         "source": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-main-40:\\drawable\\bg_btn_filter_inactive.xml"
     },
@@ -54,6 +62,10 @@
     {
         "merged": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-debug-38:\\anim_fade_in.xml.flat",
         "source": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-main-40:\\anim\\fade_in.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_approve_card_urgent.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_approve_card_urgent.xml"
     },
     {
         "merged": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-debug-38:\\drawable_bg_button_outline.xml.flat",
@@ -136,12 +148,12 @@
         "source": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-main-40:\\layout\\dialog_tambah_aset.xml"
     },
     {
-        "merged": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-debug-38:\\drawable_ic_launcher_round.xml.flat",
-        "source": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-main-40:\\drawable\\ic_launcher_round.xml"
-    },
-    {
         "merged": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-debug-38:\\layout_activity_splash.xml.flat",
         "source": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-main-40:\\layout\\activity_splash.xml"
+    },
+    {
+        "merged": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-debug-38:\\drawable_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-main-40:\\drawable\\ic_launcher_round.xml"
     },
     {
         "merged": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-debug-38:\\drawable_bg_kpi_card_blue.xml.flat",
@@ -170,10 +182,6 @@
     {
         "merged": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-debug-38:\\anim_nav_pop_up.xml.flat",
         "source": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-main-40:\\anim\\nav_pop_up.xml"
-    },
-    {
-        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_activity_login.xml.flat",
-        "source": "com.example.asetpeminjaman.app-main-40:/layout/activity_login.xml"
     },
     {
         "merged": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-debug-38:\\drawable_bg_edittext.xml.flat",
@@ -206,6 +214,10 @@
     {
         "merged": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-debug-38:\\drawable_bg_kpi_card_orange.xml.flat",
         "source": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-main-40:\\drawable\\bg_kpi_card_orange.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_item_approve_card.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/item_approve_card.xml"
     },
     {
         "merged": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-debug-38:\\drawable_bg_kpi_card_white.xml.flat",
@@ -256,6 +268,10 @@
         "source": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-main-40:\\anim\\fade_out.xml"
     },
     {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/drawable_bg_approve_card_normal.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/drawable/bg_approve_card_normal.xml"
+    },
+    {
         "merged": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-debug-38:\\layout_dialog_detail_aset.xml.flat",
         "source": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-main-40:\\layout\\dialog_detail_aset.xml"
     },
@@ -266,6 +282,10 @@
     {
         "merged": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-debug-38:\\drawable_progress_custom_hardware.xml.flat",
         "source": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-main-40:\\drawable\\progress_custom_hardware.xml"
+    },
+    {
+        "merged": "com.example.asetpeminjaman.app-debug-38:/layout_fragment_approve.xml.flat",
+        "source": "com.example.asetpeminjaman.app-main-40:/layout/fragment_approve.xml"
     },
     {
         "merged": "C:\\Users\\Muham\\.gradle\\daemon\\8.11.1\\com.example.asetpeminjaman.app-debug-38:\\drawable_bg_kpi_card_red.xml.flat",

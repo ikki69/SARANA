@@ -2975,6 +2975,7 @@ int drawable abc_vector_test 0x7f070076
 int drawable avd_hide_password 0x7f070077
 int drawable avd_show_password 0x7f070078
 int drawable bg_approve_card_normal 0x7f070079
+int drawable bg_approve_card_orange 0x7f070129
 int drawable bg_approve_card_teal 0x7f07007a
 int drawable bg_approve_card_urgent 0x7f07007b
 int drawable bg_badge_available 0x7f07007c

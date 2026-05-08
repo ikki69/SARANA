@@ -23,6 +23,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Pemicu inisialisasi database otomatis
+        DataManager.getInstance();
+
         db = FirebaseFirestore.getInstance();
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
