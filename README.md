@@ -47,7 +47,7 @@ Ikuti langkah-langkah berikut untuk menjalankan aplikasi di *environment* lokal 
    * Unduh file konfigurasi `google-services.json` Anda.
    * Ganti file `google-services.json` yang ada di dalam direktori `app/` dengan file milik Anda.
 5. **Jalankan Aplikasi**: *Build* dan *Run* aplikasi menggunakan Emulator atau langsung di perangkat Android fisik Anda.
-6. **Login**: Jika menggunakan database yang telah disediakan, jika ingin login sebagai user, silahkan menginput pada kolom *username*: rifqi dan *password*:123456
+6. **Login**: Jika menggunakan database yang telah disediakan, jika ingin login sebagai user, silahkan menginput pada kolom *username*: PTIK B dan *password*:123456
 7. **Admin**: Jika ingin login sebagai admin, silahkan menginput pada kolom *username*: admin dan *password*:12345
 
 ---
