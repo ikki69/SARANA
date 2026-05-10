@@ -87,6 +87,7 @@ public class InventoryFragment extends Fragment {
         EditText etNama = dialogView.findViewById(R.id.etAddNamaAset);
         Spinner spKategori = dialogView.findViewById(R.id.spAddKategori);
         EditText etStok = dialogView.findViewById(R.id.etAddStok);
+        EditText etHarga = dialogView.findViewById(R.id.etAddHarga);
         Spinner spKondisi = dialogView.findViewById(R.id.spAddKondisi);
 
         // Setup Spinner Kategori
@@ -106,6 +107,7 @@ public class InventoryFragment extends Fragment {
             String nama = etNama.getText().toString().trim();
             String kategori = spKategori.getSelectedItem().toString();
             String stokStr = etStok.getText().toString().trim();
+            String hargaStr = etHarga.getText().toString().trim();
             String kondisi = spKondisi.getSelectedItem().toString();
 
             if (nama.isEmpty() || stokStr.isEmpty()) {
@@ -114,7 +116,11 @@ public class InventoryFragment extends Fragment {
             }
 
             int stok = Integer.parseInt(stokStr);
+            long harga = hargaStr.isEmpty() ? 0 : Long.parseLong(hargaStr);
+            
             DataAset baru = new DataAset(0, nama, kategori, stok, kondisi);
+            if (harga > 0) baru.setHarga(harga);
+
             dataManager.tambahAset(baru);
             Toast.makeText(getContext(), "Aset berhasil ditambahkan", Toast.LENGTH_SHORT).show();
         });

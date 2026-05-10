@@ -16,10 +16,12 @@ import androidx.core.content.res.ResourcesCompat;
 public class DetailPeminjamanActivity extends AppCompatActivity {
 
     private TextView tvId, tvNama, tvNim, tvWaktuPinjam, tvWaktuKembali, tvTanggalAktual, tvKeperluan, tvStatusBanner;
-    private LinearLayout containerItems, labelTanggalAktual, statusBannerRoot;
-    private Button btnKembalikan, btnModif;
+    private TextView tvDendaTerlambat, tvDendaRusak, tvTotalDenda;
+    private LinearLayout containerItems, labelTanggalAktual, statusBannerRoot, layoutDenda;
+    private Button btnKembalikan, btnModif, btnKonfirmasiBayar;
     private DataManager dataManager;
     private DataPeminjaman p;
+    private String userRole = "user";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,10 @@ public class DetailPeminjamanActivity extends AppCompatActivity {
             finish();
             return;
         }
+
+        // Ambil role
+        android.content.SharedPreferences pref = getSharedPreferences("USER_DATA", MODE_PRIVATE);
+        userRole = pref.getString("role", "user");
 
         bindViews();
         renderData();
@@ -53,8 +59,13 @@ public class DetailPeminjamanActivity extends AppCompatActivity {
         statusBannerRoot = findViewById(R.id.statusBannerRoot);
         containerItems = findViewById(R.id.containerItems);
         labelTanggalAktual = findViewById(R.id.labelTanggalAktual);
+        layoutDenda = findViewById(R.id.layoutDenda);
+        tvDendaTerlambat = findViewById(R.id.tvDendaTerlambat);
+        tvDendaRusak = findViewById(R.id.tvDendaRusak);
+        tvTotalDenda = findViewById(R.id.tvTotalDenda);
         btnKembalikan = findViewById(R.id.btnKembalikan);
         btnModif = findViewById(R.id.btnModif);
+        btnKonfirmasiBayar = findViewById(R.id.btnKembalikan); // Re-use ID or add new in XML
         findViewById(R.id.btnBack).setOnClickListener(v -> finish());
     }
 
@@ -89,18 +100,51 @@ public class DetailPeminjamanActivity extends AppCompatActivity {
             tvStatusBanner.getBackground().setTint(0xFFFDF1D3);
             tvStatusBanner.setTextColor(0xFFC9A227);
             labelTanggalAktual.setVisibility(View.GONE);
+        } else if ("Menunggu Pembayaran".equals(p.getStatus())) {
+            statusBannerRoot.setBackgroundResource(R.drawable.bg_approve_card_urgent);
+            tvStatusBanner.getBackground().setTint(0xFFF9E2E2);
+            tvStatusBanner.setTextColor(0xFFC75B5B);
+            tvStatusBanner.setText("• Belum Lunas");
+            
+            labelTanggalAktual.setVisibility(View.VISIBLE);
+            tvTanggalAktual.setText(p.getTanggalAktualKembali());
+            
+            // Tampilkan tombol bayar jika admin
+            if ("admin".equals(userRole)) {
+                btnKembalikan.setVisibility(View.VISIBLE);
+                btnKembalikan.setText("KONFIRMASI PEMBAYARAN");
+                btnKembalikan.setBackgroundTintList(android.content.res.ColorStateList.valueOf(0xFFC75B5B));
+            }
         } else if ("Dikembalikan".equals(p.getStatus())) {
             statusBannerRoot.setBackgroundResource(R.drawable.bg_approve_card_urgent);
             tvStatusBanner.getBackground().setTint(0xFFD1EAE7);
             tvStatusBanner.setTextColor(0xFF2B7A6F);
-            tvStatusBanner.setText("• Selesai");
+            tvStatusBanner.setText("• Selesai (Lunas)");
             
             labelTanggalAktual.setVisibility(View.VISIBLE);
-            tvTanggalAktual.setVisibility(View.VISIBLE);
             tvTanggalAktual.setText(p.getTanggalAktualKembali());
         } else {
-            // Ditolak / Lainnya
             labelTanggalAktual.setVisibility(View.GONE);
+        }
+
+        // Render Denda
+        long currentDendaTerlambat = p.getDendaTerlambat();
+        if ("Dipinjam".equals(p.getStatus()) || "Menunggu Pengembalian".equals(p.getStatus())) {
+            int daysLate = DateHelper.getDaysLate(p.getTanggalRencanaKembali(), "-");
+            if (daysLate > 0) {
+                currentDendaTerlambat = daysLate * 50000L;
+            }
+        }
+
+        long totalDenda = currentDendaTerlambat + p.getDendaRusak();
+
+        if (totalDenda > 0 || "Dikembalikan".equals(p.getStatus()) || "Menunggu Pembayaran".equals(p.getStatus())) {
+            layoutDenda.setVisibility(View.VISIBLE);
+            tvDendaTerlambat.setText("Rp " + String.format(Locale.getDefault(), "%,d", currentDendaTerlambat));
+            tvDendaRusak.setText("Rp " + String.format(Locale.getDefault(), "%,d", p.getDendaRusak()));
+            tvTotalDenda.setText("Rp " + String.format(Locale.getDefault(), "%,d", totalDenda));
+        } else {
+            layoutDenda.setVisibility(View.GONE);
         }
 
         containerItems.removeAllViews();
@@ -116,6 +160,13 @@ public class DetailPeminjamanActivity extends AppCompatActivity {
 
     private void setupListeners() {
         btnKembalikan.setOnClickListener(v -> {
+            if ("Menunggu Pembayaran".equals(p.getStatus())) {
+                dataManager.konfirmasiPembayaranDenda(p.getId());
+                Toast.makeText(this, "Pembayaran dikonfirmasi. Transaksi Selesai.", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+
             String today = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
             boolean success = dataManager.ajukanPengembalian(p.getId(), today);
             

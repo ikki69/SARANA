@@ -34,4 +34,22 @@ public class DateHelper {
     public static synchronized String getTodayDate() {
         return sdf.format(new Date());
     }
+
+    public static synchronized int getDaysLate(String tanggalRencanaKembali, String tanggalAktualKembali) {
+        if (tanggalRencanaKembali == null || tanggalRencanaKembali.equals("-")) return 0;
+        
+        try {
+            Date deadline = sdf.parse(tanggalRencanaKembali);
+            Date actual = (tanggalAktualKembali == null || tanggalAktualKembali.equals("-")) 
+                            ? new Date() : sdf.parse(tanggalAktualKembali);
+            
+            if (actual != null && deadline != null && actual.after(deadline)) {
+                long diff = actual.getTime() - deadline.getTime();
+                return (int) (diff / (1000 * 60 * 60 * 24));
+            }
+        } catch (Exception e) {
+            return 0;
+        }
+        return 0;
+    }
 }

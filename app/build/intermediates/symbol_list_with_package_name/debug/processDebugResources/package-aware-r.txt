@@ -3272,11 +3272,14 @@ id btnReject
 id btnRejectRequest
 id btnRemoveItem
 id btnReset
+id btnSaveNewPass
 id btnShowAll
+id btnTabDenda
 id btnTabDipinjam
 id btnTabKembali
 id btnTabSemua
 id btnTabTerlambat
+id btnVerifyHistory
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -3377,13 +3380,17 @@ id end
 id endToStart
 id enterAlways
 id enterAlwaysCollapsed
+id etAddHarga
 id etAddNamaAset
 id etAddStok
+id etForgotUser
 id etJamKembali
 id etJamPinjam
 id etJumlahRow
 id etKeperluan
+id etLastThreeChars
 id etNama
+id etNewPass
 id etNim
 id etPassword
 id etSearch
@@ -3449,6 +3456,7 @@ id jumpToStart
 id labelTanggalAktual
 id labeled
 id layout
+id layoutDenda
 id layoutHistoryDeadline
 id layoutPeminjamanAktif
 id layoutSingleAset
@@ -3730,6 +3738,8 @@ id tvAsetKategori
 id tvAsetNama
 id tvAsetStatus
 id tvAsetStok
+id tvDendaRusak
+id tvDendaTerlambat
 id tvDetAsetIcon
 id tvDetAsetKategori
 id tvDetAsetKondisi
@@ -3737,8 +3747,10 @@ id tvDetAsetNama
 id tvDetAsetStokPinjam
 id tvDetAsetStokTersedia
 id tvDetAsetStokTotal
+id tvForgotPassword
 id tvHistoryAccount
 id tvHistoryDeadline
+id tvHistoryFine
 id tvHistoryIcon
 id tvHistoryId
 id tvHistoryName
@@ -3746,6 +3758,7 @@ id tvHistoryStatusBadge
 id tvHistoryUserInfo
 id tvIdPeminjaman
 id tvItemAset
+id tvItemFine
 id tvItemJumlah
 id tvItemNama
 id tvItemNim
@@ -3774,6 +3787,7 @@ id tvSubtitleRiwayat
 id tvTanggalAktual
 id tvTerlambatLabel
 id tvTotalAset
+id tvTotalDenda
 id tvTotalDipinjam
 id tvTotalItem
 id tvTotalKembali
@@ -3943,7 +3957,9 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout dialog_change_password
 layout dialog_detail_aset
+layout dialog_forgot_password
 layout dialog_tambah_aset
 layout fragment_admin_dashboard
 layout fragment_approve

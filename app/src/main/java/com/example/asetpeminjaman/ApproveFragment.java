@@ -138,14 +138,17 @@ public class ApproveFragment extends Fragment {
             }
 
             btnApprove.setOnClickListener(v -> {
-                String targetStatus = request.getStatus().equals("Menunggu Persetujuan") ? "Dipinjam" : "Dikembalikan";
-                dataManager.setStatusPeminjaman(request.getId(), targetStatus);
-                Toast.makeText(getContext(), "Permintaan disetujui", Toast.LENGTH_SHORT).show();
+                if ("Menunggu Pengembalian".equals(request.getStatus())) {
+                    showReturnApprovalDialog(request);
+                } else {
+                    dataManager.setStatusPeminjaman(request.getId(), "Dipinjam", 0);
+                    Toast.makeText(getContext(), "Permintaan pinjam disetujui", Toast.LENGTH_SHORT).show();
+                }
             });
 
             btnReject.setOnClickListener(v -> {
                 String targetStatus = request.getStatus().equals("Menunggu Persetujuan") ? "Ditolak" : "Dipinjam";
-                dataManager.setStatusPeminjaman(request.getId(), targetStatus);
+                dataManager.setStatusPeminjaman(request.getId(), targetStatus, 0);
                 Toast.makeText(getContext(), "Permintaan ditolak", Toast.LENGTH_SHORT).show();
             });
 
@@ -156,6 +159,78 @@ public class ApproveFragment extends Fragment {
             });
 
             return convertView;
+        }
+
+        private void showReturnApprovalDialog(DataPeminjaman request) {
+            androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+            builder.setTitle("Konfirmasi Pengembalian");
+            builder.setMessage("Apakah semua aset dikembalikan dalam kondisi baik?");
+            
+            builder.setPositiveButton("Ya, Semua Baik", (dialog, which) -> {
+                dataManager.setStatusPeminjaman(request.getId(), "Dikembalikan", 0);
+                Toast.makeText(getContext(), "Pengembalian disetujui", Toast.LENGTH_SHORT).show();
+            });
+            
+            builder.setNeutralButton("Ada yang Rusak", (dialog, which) -> {
+                showDamageFineInputDialog(request);
+            });
+            
+            builder.setNegativeButton("Batal", null);
+            builder.show();
+        }
+
+        private void showDamageFineInputDialog(DataPeminjaman request) {
+            androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+            builder.setTitle("Input Kerusakan Aset");
+
+            LinearLayout rootLayout = new LinearLayout(getContext());
+            rootLayout.setOrientation(LinearLayout.VERTICAL);
+            rootLayout.setPadding(50, 40, 50, 10);
+            
+            android.widget.ScrollView scrollView = new android.widget.ScrollView(getContext());
+            scrollView.addView(rootLayout);
+            builder.setView(scrollView);
+
+            List<android.widget.EditText> inputList = new ArrayList<>();
+            for (ItemPinjam item : request.getItems()) {
+                TextView tvItem = new TextView(getContext());
+                tvItem.setText(item.getNamaAset() + " (Dipinjam: " + item.getJumlah() + ")");
+                tvItem.setPadding(0, 20, 0, 5);
+                tvItem.setTextColor(0xFF1C1C1C);
+                rootLayout.addView(tvItem);
+
+                android.widget.EditText etCount = new android.widget.EditText(getContext());
+                etCount.setHint("Jumlah yang rusak");
+                etCount.setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
+                etCount.setText("0");
+                rootLayout.addView(etCount);
+                inputList.add(etCount);
+            }
+
+            builder.setPositiveButton("Proses Denda", (dialog, which) -> {
+                long totalDendaRusak = 0;
+                for (int i = 0; i < request.getItems().size(); i++) {
+                    ItemPinjam item = request.getItems().get(i);
+                    String val = inputList.get(i).getText().toString();
+                    int rusakCount = val.isEmpty() ? 0 : Integer.parseInt(val);
+                    
+                    // Batasi agar jumlah rusak tidak melebihi jumlah pinjam
+                    if (rusakCount > item.getJumlah()) rusakCount = item.getJumlah();
+                    
+                    if (rusakCount > 0) {
+                        DataAset aset = dataManager.getAsetByNama(item.getNamaAset());
+                        if (aset != null) {
+                            totalDendaRusak += (aset.getHarga() * rusakCount);
+                        }
+                    }
+                }
+                
+                dataManager.setStatusPeminjaman(request.getId(), "Dikembalikan", totalDendaRusak);
+                Toast.makeText(getContext(), "Pengembalian diproses dengan denda kerusakan", Toast.LENGTH_SHORT).show();
+            });
+
+            builder.setNegativeButton("Batal", null);
+            builder.show();
         }
     }
 }

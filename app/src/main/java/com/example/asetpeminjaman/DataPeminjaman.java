@@ -23,6 +23,8 @@ public class DataPeminjaman {
     private String keperluan;
     private String status; // "Menunggu Persetujuan", "Dipinjam", "Menunggu Pengembalian", "Dikembalikan", "Ditolak"
     private String priority = "Normal"; // "Normal", "Mendesak"
+    private long dendaTerlambat = 0;
+    private long dendaRusak = 0;
 
     // Constructor kosong diperlukan untuk Firebase
     public DataPeminjaman() {}
@@ -120,6 +122,17 @@ public class DataPeminjaman {
 
     public String getPriority() { return priority; }
     public void setPriority(String priority) { this.priority = priority; }
+
+    public long getDendaTerlambat() { return dendaTerlambat; }
+    public void setDendaTerlambat(long dendaTerlambat) { this.dendaTerlambat = dendaTerlambat; }
+
+    public long getDendaRusak() { return dendaRusak; }
+    public void setDendaRusak(long dendaRusak) { this.dendaRusak = dendaRusak; }
+
+    @Exclude
+    public long getTotalDenda() {
+        return dendaTerlambat + dendaRusak;
+    }
 
     @Exclude
     public boolean isAktif() {

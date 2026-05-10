@@ -50,6 +50,21 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Harga Satuan (Rp)"
+        android:textSize="12sp"
+        android:textColor="#757575" />
+    <EditText
+        android:id="@+id/etAddHarga"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Contoh: 1500000"
+        android:inputType="number"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Kondisi"
         android:textSize="12sp"
         android:textColor="#757575" />

@@ -185,6 +185,64 @@
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Keperluan" android:textColor="@color/text_hint" android:textSize="11sp" />
                 <TextView android:id="@+id/tvKeperluan" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Kebutuhan Praktikum" android:textColor="#1C1C1C" android:textSize="14sp" android:layout_marginTop="4dp" />
 
+                <!-- Bagian Denda (Terintegrasi) -->
+                <LinearLayout
+                    android:id="@+id/layoutDenda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="RINCIAN DENDA" android:textColor="@color/accent_red" android:textSize="10sp" android:textStyle="bold" android:letterSpacing="0.1" />
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:layout_marginTop="12dp">
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Denda Terlambat" android:textColor="@color/text_hint" android:textSize="11sp" />
+                            <TextView android:id="@+id/tvDendaTerlambat" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rp 0" android:textColor="#1C1C1C" android:textSize="14sp" android:textStyle="bold" android:layout_marginTop="4dp" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Denda Kerusakan" android:textColor="@color/text_hint" android:textSize="11sp" />
+                            <TextView android:id="@+id/tvDendaRusak" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rp 0" android:textColor="#1C1C1C" android:textSize="14sp" android:textStyle="bold" android:layout_marginTop="4dp" />
+                        </LinearLayout>
+                    </GridLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:padding="12dp"
+                        android:background="@drawable/bg_badge_available"
+                        android:backgroundTint="#FFF1F1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TOTAL DENDA"
+                            android:textColor="#1C1C1C"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:layout_centerVertical="true" />
+
+                        <TextView
+                            android:id="@+id/tvTotalDenda"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:text="Rp 0"
+                            android:textColor="@color/accent_red"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </LinearLayout>
+
             </LinearLayout>
 
             <!-- Action Buttons -->

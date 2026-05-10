@@ -192,6 +192,7 @@ public class HomeFragment extends Fragment {
                 LinearLayout containerItems = itemView.findViewById(R.id.containerItemPeminjaman);
                 TextView tvTanggal = itemView.findViewById(R.id.tvItemTanggal);
                 TextView tvStatus = itemView.findViewById(R.id.tvItemStatus);
+                TextView tvFine = itemView.findViewById(R.id.tvItemFine);
 
                 tvNama.setText(peminjaman.getNama());
                 tvNim.setText(peminjaman.getNim());
@@ -206,6 +207,22 @@ public class HomeFragment extends Fragment {
 
                 tvTanggal.setText(getString(R.string.pinjam_kembali_format, peminjaman.getTanggalPinjam(), peminjaman.getTanggalRencanaKembali()));
                 tvStatus.setText(peminjaman.getStatus());
+
+                // Calculate real-time fine
+                long currentDendaTerlambat = peminjaman.getDendaTerlambat();
+                if ("Dipinjam".equals(peminjaman.getStatus()) || "Menunggu Pengembalian".equals(peminjaman.getStatus())) {
+                    int daysLate = DateHelper.getDaysLate(peminjaman.getTanggalRencanaKembali(), "-");
+                    if (daysLate > 0) {
+                        currentDendaTerlambat = daysLate * 50000L;
+                    }
+                }
+                long totalDenda = currentDendaTerlambat + peminjaman.getDendaRusak();
+                if (totalDenda > 0) {
+                    tvFine.setVisibility(View.VISIBLE);
+                    tvFine.setText("Denda: Rp " + java.lang.String.format(java.util.Locale.getDefault(), "%,d", totalDenda));
+                } else {
+                    tvFine.setVisibility(View.GONE);
+                }
 
                 itemView.setOnClickListener(v -> {
                     Intent intent = new Intent(getActivity(), DetailPeminjamanActivity.class);

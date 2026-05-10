@@ -38,7 +38,7 @@ public class HistoryFragment extends Fragment {
     private LinearLayout emptyRiwayat;
     private EditText etSearch;
     private TextView tvActiveCount, tvResultLabel;
-    private MaterialButton btnTabSemua, btnTabDipinjam, btnTabTerlambat, btnTabKembali, btnShowAll;
+    private MaterialButton btnTabSemua, btnTabDipinjam, btnTabTerlambat, btnTabKembali, btnTabDenda, btnShowAll;
     private Spinner spinnerSort;
     private DataManager dataManager;
     private List<DataPeminjaman> listMaster = new ArrayList<>();
@@ -74,6 +74,7 @@ public class HistoryFragment extends Fragment {
         btnTabDipinjam = view.findViewById(R.id.btnTabDipinjam);
         btnTabTerlambat = view.findViewById(R.id.btnTabTerlambat);
         btnTabKembali = view.findViewById(R.id.btnTabKembali);
+        btnTabDenda = view.findViewById(R.id.btnTabDenda);
         btnShowAll = view.findViewById(R.id.btnShowAll);
 
         rvHistory.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -121,6 +122,7 @@ public class HistoryFragment extends Fragment {
         btnTabDipinjam.setOnClickListener(v -> { filterAktif = "DIPINJAM"; updateUI(); });
         btnTabTerlambat.setOnClickListener(v -> { filterAktif = "TERLAMBAT"; updateUI(); });
         btnTabKembali.setOnClickListener(v -> { filterAktif = "KEMBALI"; updateUI(); });
+        btnTabDenda.setOnClickListener(v -> { filterAktif = "DENDA"; updateUI(); });
     }
 
     private void loadData() {
@@ -170,6 +172,8 @@ public class HistoryFragment extends Fragment {
                 matchesFilter = "Dipinjam".equals(p.getStatus()) || "Menunggu Pengembalian".equals(p.getStatus());
             } else if (filterAktif.equals("TERLAMBAT")) {
                 matchesFilter = isLate(p);
+            } else if (filterAktif.equals("DENDA")) {
+                matchesFilter = p.getTotalDenda() > 0 || "Menunggu Pembayaran".equals(p.getStatus());
             } else if (filterAktif.equals("KEMBALI")) {
                 matchesFilter = "Dikembalikan".equals(p.getStatus());
             }
@@ -275,6 +279,22 @@ public class HistoryFragment extends Fragment {
             holder.tvInfo.setText(p.getNim() + " - Mhs. Aktif");
             holder.tvDeadline.setText(p.getTanggalRencanaKembali());
 
+            // Real-time fine calculation
+            long currentDendaTerlambat = p.getDendaTerlambat();
+            if ("Dipinjam".equals(p.getStatus()) || "Menunggu Pengembalian".equals(p.getStatus())) {
+                int daysLate = DateHelper.getDaysLate(p.getTanggalRencanaKembali(), "-");
+                if (daysLate > 0) {
+                    currentDendaTerlambat = daysLate * 50000L;
+                }
+            }
+            long totalDenda = currentDendaTerlambat + p.getDendaRusak();
+            if (totalDenda > 0) {
+                holder.tvFine.setVisibility(View.VISIBLE);
+                holder.tvFine.setText("Denda: Rp " + String.format(Locale.getDefault(), "%,d", totalDenda));
+            } else {
+                holder.tvFine.setVisibility(View.GONE);
+            }
+
             if (isLate(p)) {
                 holder.root.setBackgroundResource(R.drawable.bg_approve_card_urgent);
                 holder.tvStatus.setText("• Terlambat");
@@ -323,7 +343,7 @@ public class HistoryFragment extends Fragment {
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
-            TextView tvId, tvStatus, tvName, tvAccount, tvInfo, tvDeadline;
+            TextView tvId, tvStatus, tvName, tvAccount, tvInfo, tvDeadline, tvFine;
             LinearLayout itemsContainer;
             View root;
 
@@ -335,6 +355,7 @@ public class HistoryFragment extends Fragment {
                 tvAccount = itemView.findViewById(R.id.tvHistoryAccount);
                 tvInfo = itemView.findViewById(R.id.tvHistoryUserInfo);
                 tvDeadline = itemView.findViewById(R.id.tvHistoryDeadline);
+                tvFine = itemView.findViewById(R.id.tvHistoryFine);
                 itemsContainer = itemView.findViewById(R.id.containerHistoryItems);
                 root = itemView.findViewById(R.id.cardHistoryRoot);
             }
@@ -342,8 +363,8 @@ public class HistoryFragment extends Fragment {
     }
 
     private void updateTabStyle() {
-        MaterialButton[] buttons = {btnTabSemua, btnTabDipinjam, btnTabTerlambat, btnTabKembali};
-        String[] types = {"SEMUA", "DIPINJAM", "TERLAMBAT", "KEMBALI"};
+        MaterialButton[] buttons = {btnTabSemua, btnTabDipinjam, btnTabTerlambat, btnTabKembali, btnTabDenda};
+        String[] types = {"SEMUA", "DIPINJAM", "TERLAMBAT", "KEMBALI", "DENDA"};
         
         int teal = getResources().getColor(R.color.primary);
         

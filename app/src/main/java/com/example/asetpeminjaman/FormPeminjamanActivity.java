@@ -1,20 +1,11 @@
 package com.example.asetpeminjaman;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,9 +14,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.view.LayoutInflater;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -204,6 +200,20 @@ public class FormPeminjamanActivity extends AppCompatActivity {
             tanggalKembali.isEmpty() || jamKembali.isEmpty() || keperluan.isEmpty()) {
             Toast.makeText(this, "Harap isi semua field utama!", Toast.LENGTH_SHORT).show();
             return;
+        }
+
+        // Validasi Tanggal: Pengembalian tidak boleh sebelum Peminjaman
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        try {
+            Date start = sdf.parse(tanggalPinjam + " " + jamPinjam);
+            Date end = sdf.parse(tanggalKembali + " " + jamKembali);
+            
+            if (end != null && start != null && end.before(start)) {
+                Toast.makeText(this, "Tanggal pengembalian tidak boleh lebih awal dari peminjaman!", Toast.LENGTH_LONG).show();
+                return;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
         List<ItemPinjam> selectedItems = new ArrayList<>();

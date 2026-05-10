@@ -67,6 +67,15 @@ public class DataManager {
                 listAset.clear();
                 for (QueryDocumentSnapshot doc : value) {
                     DataAset aset = doc.toObject(DataAset.class);
+                    
+                    // PAKSA UPDATE: Jika di Firestore harganya 0, langsung timpa dengan harga standar
+                    Long hargaDiDB = doc.getLong("harga");
+                    if (hargaDiDB == null || hargaDiDB <= 0) {
+                        long hargaBaru = aset.getHarga(); 
+                        asetRef.document(String.valueOf(aset.getId())).update("harga", hargaBaru);
+                        aset.setHarga(hargaBaru);
+                    }
+
                     listAset.add(aset);
                 }
                 
@@ -80,12 +89,16 @@ public class DataManager {
     }
 
     private void syncUsersFromFirestore() {
-        // Cek apakah salah satu user contoh sudah ada
-        usersRef.document("PTIK A 23").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                if (task.getResult() == null || !task.getResult().exists()) {
-                    // Jika user contoh belum ada, lakukan inisialisasi masal
+        usersRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                if (task.getResult().isEmpty()) {
                     inisialisasiDataUsers();
+                } else {
+                    // MIGRASI: Update passwordHistory berdasarkan 3 karakter terakhir password saat ini
+                    for (QueryDocumentSnapshot doc : task.getResult()) {
+                        String currentPass = doc.getString("password");
+                        usersRef.document(doc.getId()).update("passwordHistory", generateHistoryFromPassword(currentPass));
+                    }
                 }
             }
         });
@@ -100,15 +113,31 @@ public class DataManager {
             for (char c = 'A'; c <= maxClass; c++) {
                 for (int year : cohorts) {
                     String username = prodi + " " + c + " " + year;
+                    String password = "Maba24ft";
                     Map<String, Object> user = new HashMap<>();
                     user.put("username", username);
-                    user.put("password", "Maba24ft"); // Default password: Maba24ft
+                    user.put("password", password);
                     user.put("role", "user");
+                    
+                    user.put("passwordHistory", generateHistoryFromPassword(password));
 
                     usersRef.document(username).set(user);
                 }
             }
         }
+    }
+
+    private List<String> generateHistoryFromPassword(String password) {
+        List<String> history = new ArrayList<>();
+        if (password != null && password.length() >= 3) {
+            int len = password.length();
+            history.add(String.valueOf(password.charAt(len - 3)));
+            history.add(String.valueOf(password.charAt(len - 2)));
+            history.add(String.valueOf(password.charAt(len - 1)));
+        } else {
+            history.add("x"); history.add("y"); history.add("z");
+        }
+        return history;
     }
 
     private void inisialisasiDataAset() {
@@ -195,13 +224,11 @@ public class DataManager {
         asetRef.document(String.valueOf(id)).update("stokTotal", stokBaru);
     }
 
-    public void setStatusPeminjaman(int id, String statusBaru) {
+    public void setStatusPeminjaman(int id, String statusBaru, long dendaRusakManual) {
         DataPeminjaman p = getPeminjamanById(id);
         if (p == null || p.getFirebaseId() == null) return;
 
         String statusLama = p.getStatus();
-        
-        peminjamanRef.document(p.getFirebaseId()).update("status", statusBaru);
         
         // Logika update stok saat disetujui pinjam
         if (statusBaru.equals("Dipinjam") && statusLama.equals("Menunggu Persetujuan")) {
@@ -212,9 +239,27 @@ public class DataManager {
                     asetRef.document(String.valueOf(aset.getId())).set(aset);
                 }
             }
+            p.setStatus(statusBaru);
         }
-        // Logika update stok saat disetujui kembali
+        // Logika update stok & denda saat disetujui kembali
         else if (statusBaru.equals("Dikembalikan") && statusLama.equals("Menunggu Pengembalian")) {
+            // 1. Hitung Denda Terlambat (50rb / hari)
+            int daysLate = DateHelper.getDaysLate(p.getTanggalRencanaKembali(), p.getTanggalAktualKembali());
+            if (daysLate > 0) {
+                p.setDendaTerlambat(daysLate * 50000L);
+            }
+
+            // 2. Set Denda Rusak Manual dari Input Admin
+            p.setDendaRusak(dendaRusakManual);
+
+            // 3. Tentukan Status Akhir
+            if (p.getTotalDenda() > 0) {
+                p.setStatus("Menunggu Pembayaran");
+            } else {
+                p.setStatus("Dikembalikan");
+            }
+
+            // 4. Update Stok
             for (ItemPinjam item : p.getItems()) {
                 DataAset aset = getAsetByNama(item.getNamaAset());
                 if (aset != null) {
@@ -222,6 +267,17 @@ public class DataManager {
                     asetRef.document(String.valueOf(aset.getId())).set(aset);
                 }
             }
+        } else {
+            p.setStatus(statusBaru);
+        }
+        
+        peminjamanRef.document(p.getFirebaseId()).set(p);
+    }
+
+    public void konfirmasiPembayaranDenda(int id) {
+        DataPeminjaman p = getPeminjamanById(id);
+        if (p != null && p.getFirebaseId() != null) {
+            peminjamanRef.document(p.getFirebaseId()).update("status", "Dikembalikan");
         }
     }
 
