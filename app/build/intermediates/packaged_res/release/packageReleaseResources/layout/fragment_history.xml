@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FAF9F6">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#1A130F"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="16dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Peminjaman Alat"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TRANSAKSI PEMINJAMAN"
+                android:textColor="@color/accent_teal"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Peminjaman Alat"
+                android:textColor="#1C1C1C"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp" />
+
+            <TextView
+                android:id="@+id/tvActiveCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12 peminjaman aktif saat ini"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp"
+                android:layout_marginTop="2dp" />
+
+
+            <!-- Search Bar -->
+            <EditText
+                android:id="@+id/etSearchHistory"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_button_outline_light"
+                android:hint="Cari ID, nama, NIM, atau barang..."
+                android:textColorHint="#9E9E9E"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:paddingHorizontal="16dp"
+                android:drawableStart="@drawable/abc_ic_search_api_material"
+                android:drawablePadding="12dp"
+                android:inputType="text"
+                android:singleLine="true" />
+
+            <!-- Filter Buttons -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:scrollbars="none">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    xmlns:app="http://schemas.android.com/apk/res-auto">
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnTabSemua"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:text="Semua"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:textAllCaps="false"
+                        app:cornerRadius="19dp"
+                        app:backgroundTint="@color/primary"
+                        android:paddingHorizontal="20dp"
+                        android:layout_marginEnd="8dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnTabDipinjam"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:text="• Dipinjam"
+                        android:textColor="@color/primary"
+                        android:textSize="12sp"
+                        android:textAllCaps="false"
+                        app:cornerRadius="19dp"
+                        app:strokeColor="@color/primary"
+                        app:strokeWidth="1dp"
+                        app:backgroundTint="#FFFFFF"
+                        android:paddingHorizontal="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnTabTerlambat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:text="• Terlambat"
+                        android:textColor="@color/primary"
+                        android:textSize="12sp"
+                        android:textAllCaps="false"
+                        app:cornerRadius="19dp"
+                        app:strokeColor="@color/primary"
+                        app:strokeWidth="1dp"
+                        app:backgroundTint="#FFFFFF"
+                        android:paddingHorizontal="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnTabKembali"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:text="• Selesai"
+                        android:textColor="@color/primary"
+                        android:textSize="12sp"
+                        android:textAllCaps="false"
+                        app:cornerRadius="19dp"
+                        app:strokeColor="@color/primary"
+                        app:strokeWidth="1dp"
+                        app:backgroundTint="#FFFFFF"
+                        android:paddingHorizontal="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnTabDenda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:text="• Denda"
+                        android:textColor="@color/primary"
+                        android:textSize="12sp"
+                        android:textAllCaps="false"
+                        app:cornerRadius="19dp"
+                        app:strokeColor="@color/primary"
+                        app:strokeWidth="1dp"
+                        app:backgroundTint="#FFFFFF"
+                        android:paddingHorizontal="16dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp">
+                <TextView
+                    android:id="@+id/tvResultLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Menampilkan 12 transaksi"
+                    android:textColor="@color/text_hint"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Urutkan: "
+                        android:textColor="@color/text_hint"
+                        android:textSize="12sp" />
+
+                    <Spinner
+                        android:id="@+id/spinnerSort"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:dropDownWidth="120dp"
+                        android:overlapAnchor="false"
+                        android:spinnerMode="dropdown" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!-- RecyclerView for History -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnShowAll"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="24dp"
+                android:text="Tampilkan Semua"
+                android:textColor="@color/primary"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp"
+                app:strokeColor="@color/primary"
+                app:strokeWidth="1.5dp"
+                app:backgroundTint="#FFFFFF"
+                android:visibility="gone"
+                xmlns:app="http://schemas.android.com/apk/res-auto" />
+
+            <LinearLayout
+                android:id="@+id/emptyRiwayat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="40dp"
+                android:visibility="gone">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📭" android:textSize="48sp" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tidak ada data" android:textColor="@color/text_hint" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

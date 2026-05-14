@@ -209,13 +209,19 @@ public class ApproveFragment extends Fragment {
 
             builder.setPositiveButton("Proses Denda", (dialog, which) -> {
                 long totalDendaRusak = 0;
+                boolean isValid = true;
+                String errorAset = "";
+
                 for (int i = 0; i < request.getItems().size(); i++) {
                     ItemPinjam item = request.getItems().get(i);
                     String val = inputList.get(i).getText().toString();
                     int rusakCount = val.isEmpty() ? 0 : Integer.parseInt(val);
                     
-                    // Batasi agar jumlah rusak tidak melebihi jumlah pinjam
-                    if (rusakCount > item.getJumlah()) rusakCount = item.getJumlah();
+                    if (rusakCount > item.getJumlah()) {
+                        isValid = false;
+                        errorAset = item.getNamaAset();
+                        break;
+                    }
                     
                     if (rusakCount > 0) {
                         DataAset aset = dataManager.getAsetByNama(item.getNamaAset());
@@ -225,8 +231,12 @@ public class ApproveFragment extends Fragment {
                     }
                 }
                 
-                dataManager.setStatusPeminjaman(request.getId(), "Dikembalikan", totalDendaRusak);
-                Toast.makeText(getContext(), "Pengembalian diproses dengan denda kerusakan", Toast.LENGTH_SHORT).show();
+                if (isValid) {
+                    dataManager.setStatusPeminjaman(request.getId(), "Dikembalikan", totalDendaRusak);
+                    Toast.makeText(getContext(), "Pengembalian diproses dengan denda kerusakan", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "Gagal: Jumlah rusak " + errorAset + " melebihi jumlah yang dipinjam!", Toast.LENGTH_LONG).show();
+                }
             });
 
             builder.setNegativeButton("Batal", null);
