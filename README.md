@@ -1,7 +1,7 @@
 <div align="center">
 
 <h1>🏛️ SARANA</h1>
-<h3><em>Sistem Peminjaman Aset — Jurusan Teknologi Informasi dan Komunikasi</em></h3>
+<h3><em>Sistem Peminjaman Aset — Jurusan Teknik Informatika dan Komputer</em></h3>
 
 <p>
   <img src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white"/>
