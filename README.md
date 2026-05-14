@@ -35,7 +35,6 @@
 - [👥 User Roles](#-user-roles)
 - [🗄️ Database Schema](#️-database-schema)
 - [🔌 API Overview](#-api-overview)
-- [📸 Screenshots](#-screenshots)
 - [🚢 Deployment](#-deployment)
 - [🤝 Kontribusi](#-kontribusi)
 - [📄 Lisensi](#-lisensi)
