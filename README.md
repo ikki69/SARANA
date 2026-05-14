@@ -241,8 +241,8 @@ Password : 12345
 Format username: `[PRODI] [KELAS] [ANGKATAN]`
 ```
 Contoh:
-Username : PTIK A 24
-Password : Maba24ft
+Username : PTIK B 24
+Password : 123456
 ```
 
 ### Alur Peminjaman
@@ -320,20 +320,6 @@ SARANA tidak menggunakan REST API eksternal — seluruh operasi data dilakukan m
 | Konfirmasi pembayaran | `konfirmasiPembayaranDenda(id)` | Status → "Dikembalikan" |
 
 Lihat [docs/API_DOCUMENTATION.md](docs/API_DOCUMENTATION.md) untuk detail lengkap.
-
----
-
-## 📸 Screenshots
-
-> 📷 *Screenshot placeholder — tambahkan screenshot aplikasi di sini setelah deployment.*
-
-| Splash | Login | Dashboard User | Dashboard Admin |
-|--------|-------|---------------|-----------------|
-| ![Splash](docs/screenshots/splash.png) | ![Login](docs/screenshots/login.png) | ![Home](docs/screenshots/home.png) | ![Admin](docs/screenshots/admin.png) |
-
-| Inventaris | Form Pinjam | Approval | Riwayat |
-|------------|-------------|----------|---------|
-| ![Inventory](docs/screenshots/inventory.png) | ![Form](docs/screenshots/form.png) | ![Approve](docs/screenshots/approve.png) | ![History](docs/screenshots/history.png) |
 
 ---
 
