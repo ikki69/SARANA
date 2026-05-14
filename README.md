@@ -124,7 +124,7 @@ Untuk detail arsitektur lengkap, lihat [docs/ARCHITECTURE.md](docs/ARCHITECTURE.
 ## 📁 Struktur Folder
 
 ```
-PeminjamanAset_Baru/
+PeminjamanAset_Baru/                             # ← yang tampil di GitHub
 ├── app/
 │   ├── src/main/
 │   │   ├── java/com/example/asetpeminjaman/
@@ -158,11 +158,12 @@ PeminjamanAset_Baru/
 │   │   │   ├── anim/                            # Transisi animasi
 │   │   │   └── color/                           # State color selectors
 │   │   └── AndroidManifest.xml
-│   ├── build.gradle                             # Dependencies & SDK config
+│   ├── build.gradle                             # App-level dependencies
 │   └── google-services.json                     # Firebase config
 ├── build.gradle                                 # Root build config
 ├── settings.gradle                              # Project settings
 ├── gradle.properties                            # Gradle properties
+├── .gitignore                                   # File exclusion rules
 └── docs/                                        # 📚 Dokumentasi lengkap
     ├── USER_GUIDE.md
     ├── ROLE_GUIDE.md
@@ -173,6 +174,15 @@ PeminjamanAset_Baru/
     ├── TROUBLESHOOTING.md
     └── DEVELOPER_GUIDE.md
 ```
+
+> ⚠️ **File yang TIDAK tampil di GitHub** (di-gitignore):
+> - `build/` — output build otomatis (di-generate saat compile)
+> - `.gradle/` — cache Gradle lokal
+> - `.idea/` — konfigurasi Android Studio
+> - `local.properties` — path SDK lokal (berbeda tiap mesin)
+> - `*.apk` / `*.aab` — file output build
+>
+> Setelah clone, jalankan **Gradle Sync** di Android Studio untuk meng-generate folder-folder tersebut secara lokal.
 
 ---
 
@@ -224,7 +234,9 @@ File `google-services.json` sudah tersedia di `app/` dengan konfigurasi:
 | **Package Name** | `com.example.asetpeminjaman` |
 | **Analytics** | ✅ Aktif |
 
-> ⚠️ **Catatan:** Untuk deployment production, ganti `google-services.json` dengan konfigurasi Firebase project Anda sendiri.
+> ⚠️ **Catatan:** File `local.properties` **tidak di-commit** ke repository karena berisi path SDK yang berbeda di tiap mesin. File ini akan dibuat otomatis oleh Android Studio saat pertama kali membuka project.
+>
+> Untuk deployment production, ganti `google-services.json` dengan konfigurasi Firebase project Anda sendiri.
 
 ---
 
@@ -240,8 +252,8 @@ Password : 12345
 Format username: `[PRODI] [KELAS] [ANGKATAN]`
 ```
 Contoh:
-Username : PTIK B 24
-Password : 123456
+Username : PTIK A 24
+Password : Maba24ft
 ```
 
 ### Alur Peminjaman
@@ -334,7 +346,9 @@ Build → Generate Signed Bundle/APK → APK
 ./gradlew assembleRelease
 ```
 
-Output APK: `app/release/app-release.apk`
+> 📌 **Catatan:** File `*.apk` dan `*.aab` (Android App Bundle) **tidak disertakan di repository** karena masuk daftar `.gitignore`. Untuk mendapatkan APK, clone repository lalu build secara lokal menggunakan perintah di atas.
+
+Output APK (lokal): `app/release/app-release.apk`
 
 Lihat panduan lengkap di [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
