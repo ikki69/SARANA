@@ -378,7 +378,7 @@ Project ini dibuat untuk keperluan akademik — Mata Kuliah **Pemrograman Perang
 | 3 | **Ahmad Fakhri Syafa** |
 | 4 | **St. Muslimah Nursalam** |
 
-**Institusi:** Jurusan Teknologi Informasi dan Komunikasi (JTIK)
+**Institusi:** Jurusan Teknik Informatika dan Komputer (JTIK)
 **Mata Kuliah:** Pemrograman Perangkat Mobile
 **Semester:** 4 (Genap 2025/2026)
 
