@@ -402,6 +402,6 @@ Project ini dibuat untuk keperluan akademik — Mata Kuliah **Pemrograman Perang
 
 **SARANA** — *Sistem Peminjaman Aset Jurusan JTIK*
 
-Made with ❤️ by Kelompok 2
+Made with ❤️ by Kelompok 2 PTIK B 24
 
 </div>
