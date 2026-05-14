@@ -1,0 +1,9 @@
+# Mengabaikan semua file Android App Bundle
+*.aab
+*.apk
+
+# Mengabaikan folder output build otomatis
+build/
+.gradle/
+.idea/
+local.properties
