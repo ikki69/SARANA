@@ -200,7 +200,7 @@ PeminjamanAset_Baru/                             # ← yang tampil di GitHub
 
 ```bash
 # Clone repository
-git clone https://github.com/<username>/PeminjamanAset_Baru.git
+git clone https://github.com/ikki69/SARANA.git
 
 # Masuk ke direktori project
 cd PeminjamanAset_Baru
